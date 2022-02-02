@@ -133,6 +133,9 @@ cython_debug/
 # macOS
 .DS_Store
 
+# vscode related files
+.vscode
+
 # Big files
 napr/data/datasets/*
 
