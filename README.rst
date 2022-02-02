@@ -1,4 +1,4 @@
-napr
+Napr
 ====
 
 |GPLv3 license|
@@ -8,7 +8,7 @@ napr
 
 .. |PytestMinVersion| replace:: 6.2.5
 
-**napr** is a Python package that takes a machine learning driven approach to navigate the natural products chemical space.
+Napr is a Python package that takes a machine learning driven approach to navigate the natural products chemical space.
 
 Tutorials
 ---------
@@ -27,4 +27,4 @@ You can launch the test suite, after installation (``pytest`` >= |PyTestMinVersi
 
 .. code-block:: console 
 
-    pytest sklearn
+    pytest napr
