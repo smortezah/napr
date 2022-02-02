@@ -23,8 +23,8 @@ We welcome new contributors of all experience levels.
 Testing
 ~~~~~~~
 
-You can launch the test suite, after installation (``pytest`` >= |PyTestMinVersion| is required)::
+You can launch the test suite, after installation (``pytest`` >= |PyTestMinVersion| is required):
 
-.. code-block:: console
-    
+.. code-block:: console 
+
     pytest sklearn
