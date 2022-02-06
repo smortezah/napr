@@ -8,6 +8,9 @@ Napr
 
 .. |PytestMinVersion| replace:: 6.2.5
 
+UNDER CONSTRUCTION
+------------------
+
 Napr is a Python package that takes a machine learning driven approach to navigate the natural products chemical space.
 
 Tutorials
