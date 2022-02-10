@@ -39,12 +39,4 @@ Cite
 
 If you use this package, please cite:
 
-.. code-block::
-
-    @article{hosseini2021chemical,
-        title={The chemical space of terpenes: insights from data science and AI},
-        author={Hosseini, Morteza and Pereira, David M},
-        journal={arXiv preprint arXiv:2110.15047},
-        year={2021}
-    }
-
+- Hosseini, Morteza, and David M. Pereira. "The chemical space of terpenes: insights from data science and AI." arXiv preprint `arXiv:2110.15047 <https://arxiv.org/abs/2110.15047>`_ (2021).
