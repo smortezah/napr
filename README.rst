@@ -18,7 +18,7 @@ Tutorials
 
 You can find the followings in the `tutorials <https://github.com/smortezah/napr/tree/main/tutorials>`_ directory:
 
-- `Terpenes-explore <https://github.com/smortezah/napr/tree/main/tutorials/Terpenes-explore.ipynb>`_: exploratory data analysis of terpenes (COCONUT dataset) in the natural products chemical space
+- `Terpene-explore <https://github.com/smortezah/napr/tree/main/tutorials/Terpene-explore.ipynb>`_: exploratory data analysis of terpenes (the COCONUT dataset) in the natural products chemical space
 
 Development
 -----------
