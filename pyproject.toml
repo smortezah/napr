@@ -3,7 +3,7 @@ name = "napr"
 version = "0.1.2"
 description = "Machine learning meets natural products"
 authors = ["Morteza Hosseini"]
-license = "GPLv3"
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.9"
