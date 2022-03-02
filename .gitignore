@@ -140,3 +140,4 @@ cython_debug/
 napr/data/datasets/*
 
 # TODO: will be removed later
+publish.md
