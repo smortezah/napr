@@ -1,11 +1,13 @@
 Napr
 ====
 
-.. image:: https://img.shields.io/pypi/l/napr
+|License|_ |Python|_ |PyPI|_
+
+.. |License| image:: https://img.shields.io/pypi/l/napr
     :alt: PyPI - License
-.. image:: https://img.shields.io/pypi/pyversions/napr
+.. |Python| image:: https://img.shields.io/pypi/pyversions/napr
     :alt: PyPI - Python Version
-.. image:: https://img.shields.io/pypi/v/napr
+.. |PyPI| image:: https://img.shields.io/pypi/v/napr
     :alt: PyPI
 
 .. |PytestMinVersion| replace:: 6.2.5
