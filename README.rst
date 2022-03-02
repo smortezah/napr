@@ -1,17 +1,26 @@
 Napr
 ====
 
-|GPLv3 license|
-
-.. |GPLv3 license| image:: https://img.shields.io/badge/License-GPLv3-blue.svg
-    :target: https://www.gnu.org/licenses/gpl-3.0.en.html
+.. image:: https://img.shields.io/pypi/l/napr
+    :alt: PyPI - License
+.. image:: https://img.shields.io/pypi/pyversions/napr
+    :alt: PyPI - Python Version
+.. image:: https://img.shields.io/pypi/v/napr
+    :alt: PyPI
 
 .. |PytestMinVersion| replace:: 6.2.5
 
-UNDER CONSTRUCTION
-------------------
-
 Napr is a Python package that takes a machine learning driven approach to navigate the natural products chemical space.
+
+Install
+-------
+.. code-block:: bash
+
+    pip install napr
+
+To update napr to the latest version, add -U or --upgrade flag, i.e. :code:`pip install -U napr`.
+
+
 
 Tutorials
 ---------
