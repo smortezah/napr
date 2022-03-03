@@ -1,8 +1,10 @@
 Napr
 ====
 
-|Python|_ |PyPI|_ |Downloads|_
+|License|_ |Python|_ |PyPI|_ |Downloads|_
 
+.. |License| image:: https://img.shields.io/github/license/smortezah/napr
+.. _License: https://github.com/smortezah/napr/blob/main/LICENSE
 .. |Python| image:: https://img.shields.io/pypi/pyversions/napr
 .. _Python: https://img.shields.io/pypi/pyversions/napr
 .. |PyPI| image:: https://img.shields.io/pypi/v/napr
