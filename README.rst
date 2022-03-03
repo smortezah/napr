@@ -1,12 +1,14 @@
 Napr
 ====
 
-|Python|_ |PyPI|_
+|Python|_ |PyPI|_ |Downloads|_
 
 .. |Python| image:: https://img.shields.io/pypi/pyversions/napr
 .. _Python: https://img.shields.io/pypi/pyversions/napr
 .. |PyPI| image:: https://img.shields.io/pypi/v/napr
 .. _PyPi: https://pypi.org/project/napr
+.. |Downloads| image:: https://img.shields.io/pypi/dm/napr
+.. _Downloads: https://img.shields.io/pypi/dm/napr
 
 .. |PytestMinVersion| replace:: 6.2.5
 
