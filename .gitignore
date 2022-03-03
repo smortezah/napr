@@ -139,5 +139,6 @@ cython_debug/
 # Big files
 napr/data/datasets/*
 
-# TODO: will be removed later
+#
 publish.md
+tutorials/terpene-21.3.bz2
