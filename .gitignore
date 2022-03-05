@@ -140,5 +140,5 @@ cython_debug/
 napr/data/datasets/*
 
 #
-publish.md
 tutorials/terpene-21.3.bz2
+instruct.md

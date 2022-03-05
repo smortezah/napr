@@ -10,7 +10,7 @@ Napr
 .. |PyPI| image:: https://img.shields.io/pypi/v/napr
 .. _PyPi: https://pypi.org/project/napr
 .. |Downloads| image:: https://img.shields.io/pypi/dm/napr
-.. _Downloads: https://img.shields.io/pypi/dm/napr
+.. _Downloads: https://pypistats.org/packages/napr
 
 .. |PytestMinVersion| replace:: 6.2.5
 
@@ -18,18 +18,16 @@ Napr is a Python package that takes a machine learning driven approach to naviga
 
 Install
 -------
-.. code-block:: bash
+.. code-block:: sh
 
     pip install napr
 
 To update napr to the latest version, add -U or --upgrade flag, i.e. :code:`pip install -U napr`.
 
-
-
 Tutorials
 ---------
 
-You can find the followings in the `tutorials <https://github.com/smortezah/napr/tree/main/tutorials>`_ directory:
+You can find the followings in the tutorials directory:
 
 - `Terpene-explore <https://github.com/smortezah/napr/tree/main/tutorials/Terpene-explore.ipynb>`_: exploratory data analysis of terpenes (the COCONUT dataset) in the natural products chemical space
 
@@ -43,7 +41,7 @@ Testing
 
 You can launch the test suite, after installation (``pytest`` >= |PyTestMinVersion| is required):
 
-.. code-block:: console 
+.. code-block:: sh
 
     pytest napr
 
