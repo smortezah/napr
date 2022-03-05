@@ -1,4 +1,4 @@
-"""Plotting functions for terpenes."""
+"""Exploratory data analysis of terpenes."""
 
 import numpy as np
 import pandas as pd
@@ -29,7 +29,7 @@ def _filter_subclasses(data: pd.DataFrame) -> pd.DataFrame:
     return data[data['chemicalSubClass'].isin(SUBCLASS_NAME.keys())]
 
 
-def _plot_dist_subclass_mw_logp_nplscore(
+def plot_dist_subclass_mw_logp_nplscore(
         data: pd.DataFrame,
         figsize: tuple[float, float] = (9, 8)
 ) -> tuple[mpl.figure.Figure, mpl.axes.Axes]:
@@ -162,7 +162,7 @@ def _plot_dist_subclass_mw_logp_nplscore(
     return fig, ax
 
 
-def _plot_violin_mw_logp_nplscore(
+def plot_violin_mw_logp_nplscore(
     data: pd.DataFrame,
     figsize: tuple[float, float] = (8.5, 3.5)
 ) -> tuple[mpl.figure.Figure, mpl.axes.Axes]:
@@ -229,7 +229,7 @@ def _plot_violin_mw_logp_nplscore(
     return fig, ax
 
 
-def _plot_lipinsky(
+def plot_lipinsky(
     data: pd.DataFrame,
     figsize: tuple[float, float] = (6, 8)
 ) -> tuple[mpl.figure.Figure, mpl.axes.Axes]:
@@ -328,7 +328,7 @@ def _plot_lipinsky(
     return fig, ax
 
 
-def _plot_hbond(
+def plot_hbond(
     data: pd.DataFrame,
     figsize: tuple[float, float] = (7, 10)
 ) -> tuple[mpl.figure.Figure, mpl.axes.Axes]:
