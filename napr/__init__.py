@@ -7,8 +7,8 @@ from napr import (
     utils
 )
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 __author__ = 'Morteza Hosseini'
-__license__ = 'GPLv3'
+__license__ = 'MIT'
 
 __all__ = ["apps", "data", "plotting", "utils"]
