@@ -1,16 +1,18 @@
 Napr
 ====
 
-|License|_ |Python|_ |PyPI|_ |Downloads|_
+|license|_ |python|_ |pypi|_ |downloads|_ |build|_
 
-.. |License| image:: https://img.shields.io/github/license/smortezah/napr
-.. _License: https://github.com/smortezah/napr/blob/main/LICENSE
-.. |Python| image:: https://img.shields.io/pypi/pyversions/napr
-.. _Python: https://img.shields.io/pypi/pyversions/napr
-.. |PyPI| image:: https://img.shields.io/pypi/v/napr
-.. _PyPi: https://pypi.org/project/napr
-.. |Downloads| image:: https://img.shields.io/pypi/dm/napr
-.. _Downloads: https://pypistats.org/packages/napr
+.. |license| image:: https://img.shields.io/github/license/smortezah/napr
+.. _license: https://github.com/smortezah/napr/blob/main/LICENSE
+.. |python| image:: https://img.shields.io/pypi/pyversions/napr
+.. _python: https://img.shields.io/pypi/pyversions/napr
+.. |pypi| image:: https://img.shields.io/pypi/v/napr
+.. _pypi: https://pypi.org/project/napr
+.. |downloads| image:: https://img.shields.io/pypi/dm/napr
+.. _downloads: https://pypistats.org/packages/napr
+.. |build| image:: https://github.com/smortezah/napr/actions/workflows/python-app.yml/badge.svg?branch=main
+.. _bUIld: https://github.com/smortezah/napr/actions/workflows/python-app.yml
 
 Napr is a Python package that takes a machine learning driven approach to navigate the natural products chemical space.
 
