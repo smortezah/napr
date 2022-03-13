@@ -12,8 +12,6 @@ Napr
 .. |Downloads| image:: https://img.shields.io/pypi/dm/napr
 .. _Downloads: https://pypistats.org/packages/napr
 
-.. |PytestMinVersion| replace:: 6.2.5
-
 Napr is a Python package that takes a machine learning driven approach to navigate the natural products chemical space.
 
 Install
@@ -39,12 +37,12 @@ We welcome new contributors of all experience levels.
 Testing
 ~~~~~~~
 
-You can launch the test suite, after installation (``pytest`` >= |PyTestMinVersion| is required):
+Launch the test suite, after installation:
 
 .. code-block:: sh
 
     pytest napr
-
+    
 Cite
 ----
 
