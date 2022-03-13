@@ -54,6 +54,7 @@ def plot_dist_subclass_mw_logp_nplscore(
     ax = list(ax_dict.values())
 
     # Filter our subclasses of interest
+    assert 'chemicalSubClass' in data.columns
     data = _filter_subclasses(data)
 
     # Subplot a
@@ -139,16 +140,20 @@ def plot_dist_subclass_mw_logp_nplscore(
         _plot_hist(data=data, ax=ax, xlim=xlim, xlabel=xlabel, ylabel=ylabel)
         _plot_table(data=data.describe()[1:], ax=ax, bbox=bbox)
 
+
     # Molecular weight
+    assert 'molecular_weight' in data.columns
     _plot_hist_table(
         data=data['molecular_weight'], ax=ax[2], xlim=(0, 2000),
         xlabel='Molecular weight', ylabel='Count',
         bbox=(0.47, 0.54, 0.5, 0.46))
     # logP
+    assert 'alogp' in data.columns
     _plot_hist_table(
         data=data['alogp'], ax=ax[3], xlim=(-12, 20), xlabel='logP',
         ylabel='', bbox=(0.6, 0.54, 0.4, 0.46))
     # Natural product-likeness score
+    assert 'npl_score' in data.columns
     _plot_hist_table(
         data=data['npl_score'], ax=ax[4], xlim=(-1, 4),
         xlabel='Natural product-likeness score', ylabel='',
@@ -184,6 +189,7 @@ def plot_violin_mw_logp_nplscore(
 
     # Data
     feat_subclass = 'chemicalSubClass'
+    assert feat_subclass in data.columns
     top_subclasses = data[feat_subclass].value_counts()[:6].index
     data_filtered = data[data[feat_subclass].isin(top_subclasses)]
 
@@ -206,15 +212,18 @@ def plot_violin_mw_logp_nplscore(
 
     order = list(top_subclasses)
     # Molecular weight
+    assert 'molecular_weight' in data.columns
     _plot_violin(
         data=data_filtered, x='molecular_weight', y=feat_subclass, ax=ax[0],
         xlim=(0, 2000), xlabel='Molecular weight', ylabel='Terpene subclass',
         order=order)
     # logP
+    assert 'alogp' in data.columns
     _plot_violin(
         data=data_filtered, x='alogp', y=feat_subclass, ax=ax[1],
         xlim=(-12, 20), xlabel='logP', ylabel='', order=order)
     # Natural product-likeness score
+    assert 'npl_score' in data.columns
     _plot_violin(
         data=data_filtered, x='npl_score', y=feat_subclass, ax=ax[2],
         xlim=(-1, 4), xlabel='Natural product-likeness score', ylabel='',
@@ -250,6 +259,7 @@ def plot_lipinsky(
     data = _filter_subclasses(data)
 
     feat_subclass = 'chemicalSubClass'
+    assert feat_subclass in data.columns
     top_subclasses = data[feat_subclass].value_counts()[:6].index
     data_filtered = data[data[feat_subclass].isin(top_subclasses)]
 
@@ -261,6 +271,7 @@ def plot_lipinsky(
         b_left+b_width/10, b_bottom+b_height/5, 0.9*b_width, b_height])
     # Data
     feat_lipinsky = 'lipinskiRuleOf5Failures'
+    assert feat_lipinsky in data_filtered.columns
     counts_lipinsky = data_filtered[feat_lipinsky].value_counts()
     # Plot
     sns.countplot(
@@ -353,6 +364,7 @@ def plot_hbond(
     data = _filter_subclasses(data)
 
     feat_subclass = 'chemicalSubClass'
+    assert feat_subclass in data.columns
     top_subclasses = data[feat_subclass].value_counts()[:6].index
     data_filtered = data[data[feat_subclass].isin(top_subclasses)]
 
@@ -381,9 +393,13 @@ def plot_hbond(
         ax.set_title(title, loc='center', fontsize=10.5)
         _bar_label(ax=ax, full_data=data)
 
+    feat_hbond_acceptor = 'hBondAcceptorCount'
+    feat_hbond_donor = 'hBondDonorCount'
+    assert feat_hbond_acceptor in data_filtered.columns
+    assert feat_hbond_donor in data_filtered.columns
     color = sns.color_palette('Dark2', n_colors=8)
     for i, (feature, upper) in enumerate(
-            zip(['hBondAcceptorCount', 'hBondDonorCount'], [10, 5])):
+            zip([feat_hbond_acceptor, feat_hbond_donor], [10, 5])):
         # Subplots a, b
         _plot(
             data=data_filtered, feature=feature, upper=upper,
