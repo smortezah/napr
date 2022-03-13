@@ -14,7 +14,7 @@ tqdm = "^4.63.0"
 requests = "^2.27.1"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.4"
+pytest = "^7.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
