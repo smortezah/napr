@@ -1,11 +1,11 @@
-"""Utilities for the terpene data."""
+"""The base class for terpenes."""
 
 import pandas as pd
 
 from napr.plotting import set_plt_style
 
 
-class Terpene():
+class Terpene:
     """The Terpene class."""
 
     def __init__(self, data: pd.DataFrame) -> None:
