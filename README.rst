@@ -11,8 +11,8 @@ Napr
 .. _pypi: https://pypi.org/project/napr
 .. |downloads| image:: https://img.shields.io/pypi/dm/napr
 .. _downloads: https://pypistats.org/packages/napr
-.. |build| image:: https://github.com/smortezah/napr/actions/workflows/python-app.yml/badge.svg?branch=main
-.. _bUIld: https://github.com/smortezah/napr/actions/workflows/python-app.yml
+.. |build| image:: https://github.com/smortezah/napr/actions/workflows/test.yml/badge.svg
+.. _bUIld: https://github.com/smortezah/napr/actions/workflows/test.yml
 
 Napr is a Python package that takes a machine learning driven approach to navigate the natural products chemical space.
 
