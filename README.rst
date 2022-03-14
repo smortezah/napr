@@ -1,7 +1,7 @@
 Napr
 ====
 
-|license|_ |python|_ |pypi|_ |downloads|_ |build|_
+|license|_ |python|_ |pypi|_ |coverage|_ |downloads|_ |test|_
 
 .. |license| image:: https://img.shields.io/github/license/smortezah/napr
 .. _license: https://github.com/smortezah/napr/blob/main/LICENSE
@@ -9,10 +9,12 @@ Napr
 .. _python: https://img.shields.io/pypi/pyversions/napr
 .. |pypi| image:: https://img.shields.io/pypi/v/napr
 .. _pypi: https://pypi.org/project/napr
+.. |coverage| image:: https://codecov.io/gh/smortezah/napr/branch/main/graph/badge.svg?token=DIZ6JRWAZM
+.. _coverage: https://codecov.io/gh/smortezah/napr
 .. |downloads| image:: https://img.shields.io/pypi/dm/napr
 .. _downloads: https://pypistats.org/packages/napr
-.. |build| image:: https://github.com/smortezah/napr/actions/workflows/test.yml/badge.svg
-.. _bUIld: https://github.com/smortezah/napr/actions/workflows/test.yml
+.. |test| image:: https://github.com/smortezah/napr/actions/workflows/test.yml/badge.svg?branch=main
+.. _test: https://github.com/smortezah/napr/actions/workflows/test.yml
 
 Napr is a Python package that takes a machine learning driven approach to navigate the natural products chemical space.
 
