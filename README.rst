@@ -11,8 +11,8 @@ Napr
 .. _pypi: https://pypi.org/project/napr
 .. |coverage| image:: https://codecov.io/gh/smortezah/napr/branch/main/graph/badge.svg?token=DIZ6JRWAZM
 .. _coverage: https://codecov.io/gh/smortezah/napr
-.. |downloads| image:: https://img.shields.io/pypi/dm/napr
-.. _downloads: https://pypistats.org/packages/napr
+.. |downloads| image:: https://static.pepy.tech/personalized-badge/napr?period=total&units=international_system&left_color=grey&right_color=yellow&left_text=downloads
+.. _downloads: https://pepy.tech/project/napr
 .. |test| image:: https://github.com/smortezah/napr/actions/workflows/test.yml/badge.svg?branch=main
 .. _test: https://github.com/smortezah/napr/actions/workflows/test.yml
 
