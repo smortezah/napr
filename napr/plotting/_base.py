@@ -7,11 +7,12 @@ import matplotlib.pyplot as plt
 
 
 def label_subplot(
-        fig: mpl.figure.Figure,
-        ax: mpl.axes.Axes,
-        label: str,
-        translate: tuple[float, float] = (0, 0),
-        **kwargs) -> mpl.text.Text:
+    fig: mpl.figure.Figure,
+    ax: mpl.axes.Axes,
+    label: str,
+    translate: tuple[float, float] = (0, 0),
+    **kwargs
+) -> mpl.text.Text:
     """Label a subplot.
 
     Args:
@@ -26,10 +27,17 @@ def label_subplot(
         matplotlib.text.Text: An instance of Text.
     """
     trans = mpl.transforms.ScaledTranslation(
-        translate[0], translate[1], fig.dpi_scale_trans)
+        translate[0], translate[1], fig.dpi_scale_trans
+    )
     text = ax.text(
-        0, 1, label, transform=ax.transAxes+trans, fontsize=15,
-        fontweight='bold', **kwargs)
+        0,
+        1,
+        label,
+        transform=ax.transAxes + trans,
+        fontsize=15,
+        fontweight="bold",
+        **kwargs
+    )
     return text
 
 
@@ -38,17 +46,17 @@ def reset_plt_style() -> None:
     mpl.rcParams.update(mpl.rcParamsDefault)
 
 
-def set_plt_style(style: str = 'ggplot_classic') -> None:
+def set_plt_style(style: str = "ggplot_classic") -> None:
     """Set matplotlib plot style.
 
     Args:
         style (str, optional): Style sheet. Defaults to 'ggplot_classic'.
     """
     curr_dir = os.path.dirname(__file__)
-    if style == 'ggplot_classic':
-        stylesheet = os.path.join(curr_dir, 'ggplot_classic.mplstyle')
-    elif style == 'ggplot_bw':
-        stylesheet = os.path.join(curr_dir, 'ggplot_bw.mplstyle')
+    if style == "ggplot_classic":
+        stylesheet = os.path.join(curr_dir, "ggplot_classic.mplstyle")
+    elif style == "ggplot_bw":
+        stylesheet = os.path.join(curr_dir, "ggplot_bw.mplstyle")
     else:
         stylesheet = style
 

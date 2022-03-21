@@ -1,6 +1,7 @@
-# This workflow will install Python dependencies, lint with a single version of Python and run tests.
+# This workflow will install Python dependencies, lint with a single version of 
+# Python, run tests and generate coverage report.
 
-name: test
+name: CI
 
 on:
   push:

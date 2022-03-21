@@ -6,9 +6,10 @@ import pandas as pd
 
 
 def percent_within(
-        data: Union[list, pd.Series],
-        interval: tuple[float, float],
-        inclusive: str = 'both') -> float:
+    data: Union[list, pd.Series],
+    interval: tuple[float, float],
+    inclusive: str = "both",
+) -> float:
     """Percentage of data within an interval.
 
     Args:
@@ -23,8 +24,9 @@ def percent_within(
     data = pd.Series(data, dtype=float)
 
     if data.empty:
-        raise ValueError('Data cannot be empty.')
+        raise ValueError("Data cannot be empty.")
 
     len_within = len(
-        data[data.between(min(interval), max(interval), inclusive=inclusive)])
+        data[data.between(min(interval), max(interval), inclusive=inclusive)]
+    )
     return 100 * len_within / len(data)

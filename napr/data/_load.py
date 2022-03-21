@@ -8,9 +8,8 @@ from . import _base
 
 
 def load_terpene(
-        download: bool = False,
-        path: str = _base.CURR_DIR,
-        version: str = '21.3') -> pd.DataFrame:
+    download: bool = False, path: str = _base.CURR_DIR, version: str = "21.3"
+) -> pd.DataFrame:
     """Loading the terpene dataset.
 
     If download=True, the data will be downloaded first.
@@ -30,7 +29,7 @@ def load_terpene(
     Returns:
         pandas.DataFrame: The terpene data
     """
-    if version not in ['21.3']:
+    if version not in ["21.3"]:
         raise ValueError(f"Version {version} not supported.")
 
     if os.path.isdir(path):
@@ -40,10 +39,12 @@ def load_terpene(
         if not os.path.exists(path):
             raise FileNotFoundError(f"File {path} not found.")
     else:
-        if version == '21.3':
-            url = 'https://drive.google.com/uc?id=1naoIB6yWvba-JY2UAvJln9t3Xh_f6C8p&export=download'
+        if version == "21.3":
+            url = "https://drive.google.com/uc?id=1naoIB6yWvba-JY2UAvJln9t3Xh_f6C8p&export=download"
             _base.download(url=url, path=path)
 
+    # fmt: off
     data = pd.read_csv(
-        path, index_col=0, low_memory=False, compression='infer')
+        path, index_col=0, low_memory=False, compression="infer"
+    )
     return data

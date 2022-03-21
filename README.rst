@@ -1,7 +1,7 @@
 Napr
 ====
 
-|license|_ |python|_ |pypi|_ |coverage|_ |downloads|_ |test|_
+|license|_ |python|_ |pypi|_ |coverage|_ |downloads|_ |style|_ |test|_
 
 .. |license| image:: https://img.shields.io/github/license/smortezah/napr
 .. _license: https://github.com/smortezah/napr/blob/main/LICENSE
@@ -13,6 +13,8 @@ Napr
 .. _coverage: https://codecov.io/gh/smortezah/napr
 .. |downloads| image:: https://static.pepy.tech/personalized-badge/napr?period=total&units=international_system&left_color=grey&right_color=yellow&left_text=downloads
 .. _downloads: https://pepy.tech/project/napr
+.. |style| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+.. _style: https://github.com/psf/black
 .. |test| image:: https://github.com/smortezah/napr/actions/workflows/test.yml/badge.svg?branch=main
 .. _test: https://github.com/smortezah/napr/actions/workflows/test.yml
 

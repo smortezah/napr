@@ -9,4 +9,4 @@ def test_load_terpene():
     """Test loading the terpene dataset."""
     # Supported version is 21.3
     with pytest.raises(ValueError):
-        load_terpene(download=False, version='20')
+        load_terpene(download=False, version="20")
