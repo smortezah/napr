@@ -1,7 +1,7 @@
 """Test the base plotting functions."""
 
-import matplotlib as mpl
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 
 from napr.plotting._base import label_subplot, reset_plt_style, set_plt_style
 
@@ -18,10 +18,10 @@ def test_label_subplot():
 def test_plt_style():
     """Test the set_plt_style and reset_plt_style functions."""
     set_plt_style()
-    assert mpl.rcParams != mpl.rcParamsDefault
+    assert mpl.rcParams != mpl.rcParamsDefault  # type: ignore
 
     reset_plt_style()
-    assert mpl.rcParams == mpl.rcParamsDefault
+    assert mpl.rcParams == mpl.rcParamsDefault  # type: ignore
 
     set_plt_style("ggplot_bw")
     assert mpl.rcParams["axes.grid"] is True

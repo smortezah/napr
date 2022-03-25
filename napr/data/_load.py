@@ -43,8 +43,5 @@ def load_terpene(
             url = "https://drive.google.com/uc?id=1naoIB6yWvba-JY2UAvJln9t3Xh_f6C8p&export=download"
             _base.download(url=url, path=path)
 
-    # fmt: off
-    data = pd.read_csv(
-        path, index_col=0, low_memory=False, compression="infer"
-    )
+    data = pd.read_csv(path, index_col=0, low_memory=False, compression="infer")
     return data

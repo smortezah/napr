@@ -3,7 +3,7 @@
 import random
 import pandas as pd
 
-import matplotlib.pyplot as plt
+from matplotlib import figure, axes
 
 import pytest
 
@@ -136,9 +136,9 @@ def test_plot_dist_subclass_mw_logp_nplscore(data):
     """Test the plot_dist_subclass_mw_logp_nplscore function."""
     fig, ax = plot_dist_subclass_mw_logp_nplscore(data)
 
-    assert isinstance(fig, plt.Figure)
+    assert isinstance(fig, figure.Figure)
     for axis in ax:
-        assert isinstance(axis, plt.Axes)
+        assert isinstance(axis, axes.Axes)
 
     assert len(ax) == 5
 
@@ -147,9 +147,9 @@ def test_plot_violin_mw_logp_nplscore(data):
     """Test the plot_violin_mw_logp_nplscore function."""
     fig, ax = plot_violin_mw_logp_nplscore(data)
 
-    assert isinstance(fig, plt.Figure)
+    assert isinstance(fig, figure.Figure)
     for axis in ax:
-        assert isinstance(axis, plt.Axes)
+        assert isinstance(axis, axes.Axes)
 
     assert len(ax) == 3
 
@@ -158,9 +158,9 @@ def test_plot_lipinsky(data):
     """Test the plot_lipinsky function."""
     fig, ax = plot_lipinsky(data)
 
-    assert isinstance(fig, plt.Figure)
+    assert isinstance(fig, figure.Figure)
     for axis in ax:
-        assert isinstance(axis, plt.Axes)
+        assert isinstance(axis, axes.Axes)
 
     assert len(ax) == 7
 
@@ -170,8 +170,8 @@ def test_plot_hbond(data):
     with pytest.warns(DeprecationWarning):
         fig, ax = plot_hbond(data)
 
-    assert isinstance(fig, plt.Figure)
+    assert isinstance(fig, figure.Figure)
     for axis in ax:
-        assert isinstance(axis, plt.Axes)
+        assert isinstance(axis, axes.Axes)
 
     assert len(ax) == 14
