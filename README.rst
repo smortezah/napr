@@ -31,7 +31,7 @@ To update napr to the latest version, add -U or --upgrade flag, i.e. :code:`pip 
 Tutorials
 ---------
 
-You can find the followings in the tutorials directory:
+The tutorials directory include:
 
 - `Terpene-explore <https://github.com/smortezah/napr/tree/main/tutorials/Terpene-explore.ipynb>`_: exploratory data analysis of terpenes (the COCONUT dataset) in the natural products chemical space
 
