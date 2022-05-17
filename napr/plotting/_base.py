@@ -2,17 +2,22 @@
 
 import os
 
-import matplotlib as mpl
-import matplotlib.pyplot as plt
+from matplotlib import (
+    figure,
+    axes,
+    text,
+    transforms,
+    pyplot as plt,
+)
 
 
 def label_subplot(
-    fig: mpl.figure.Figure,
-    ax: mpl.axes.Axes,
+    fig: figure.Figure,
+    ax: axes.Axes,
     label: str,
     translate: tuple[float, float] = (0, 0),
     **kwargs
-) -> mpl.text.Text:
+) -> text.Text:
     """Label a subplot.
 
     Args:
@@ -26,7 +31,7 @@ def label_subplot(
     Returns:
         matplotlib.text.Text: An instance of Text.
     """
-    trans = mpl.transforms.ScaledTranslation(
+    trans = transforms.ScaledTranslation(
         translate[0], translate[1], fig.dpi_scale_trans
     )
     text = ax.text(
@@ -43,7 +48,7 @@ def label_subplot(
 
 def reset_plt_style() -> None:
     """Set matplotlib plot style to default."""
-    mpl.rcParams.update(mpl.rcParamsDefault)
+    plt.style.use("default")
 
 
 def set_plt_style(style: str = "ggplot_classic") -> None:

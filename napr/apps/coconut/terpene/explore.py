@@ -3,8 +3,7 @@
 import numpy as np
 import pandas as pd
 
-import matplotlib as mpl
-import matplotlib.pyplot as plt
+from matplotlib import figure, axes, pyplot as plt
 from matplotlib.patches import ConnectionPatch
 import seaborn as sns
 
@@ -31,7 +30,7 @@ def _filter_subclasses(data: pd.DataFrame) -> pd.DataFrame:
 
 def plot_dist_subclass_mw_logp_nplscore(
     data: pd.DataFrame, figsize: tuple[float, float] = (9, 8)
-) -> tuple[mpl.figure.Figure, mpl.axes.Axes]:
+) -> tuple[figure.Figure, list[axes.Axes]]:
     """Plot the distribution of subclasses, molecular weight, logP, and
     NPL-score.
 
@@ -49,7 +48,9 @@ def plot_dist_subclass_mw_logp_nplscore(
     AAABBB
     CCDDEE
     CCDDEE"""
-    fig, ax_dict = plt.subplot_mosaic(mosaic=mosaic, figsize=figsize)
+    fig, ax_dict = plt.subplot_mosaic(
+        mosaic=mosaic, figsize=figsize
+    )  # type: ignore
     ax = list(ax_dict.values())
 
     # Filter our subclasses of interest
@@ -57,11 +58,11 @@ def plot_dist_subclass_mw_logp_nplscore(
     data = _filter_subclasses(data)
 
     # Subplot a
-    def _get_pies_data(data):
+    def _get_pies_data(data: pd.DataFrame) -> tuple[pd.Series, pd.Series]:
         data_pie = data["chemicalSubClass"].value_counts()
         threshold = 2000
         # Small pie
-        data_smallpie = data_pie[data_pie.values <= threshold]
+        data_smallpie = data_pie[data_pie <= threshold]
         data_smallpie.sort_values(inplace=True)
         # Large pie
         data_largepie = pd.concat(
@@ -103,16 +104,16 @@ def plot_dist_subclass_mw_logp_nplscore(
     data_largepie, data_smallpie = _get_pies_data(data)
     # Large pie chart
     ax[0].pie(
-        data_largepie.values,
+        data_largepie,
         labels=_get_labels(data_largepie),
-        startangle=-1.0 / 360 * data_largepie.values[0],
+        startangle=-1.0 / 360 * data_largepie[0],
         autopct="%.0f%%",
-        explode=[0.1] + [0] * (len(data_largepie) - 1),
+        explode=[0.1] + [0.0] * (len(data_largepie) - 1),
         colors=sns.color_palette("Set2", n_colors=len(data_largepie)),
     )
     # Small pie chart
     ax[1].pie(
-        data_smallpie.values,
+        data_smallpie,
         labels=_get_labels(data_smallpie),
         startangle=-25,
         autopct="%.0f%%",
@@ -203,7 +204,7 @@ def plot_dist_subclass_mw_logp_nplscore(
 
 def plot_violin_mw_logp_nplscore(
     data: pd.DataFrame, figsize: tuple[float, float] = (8.5, 3.5)
-) -> tuple[mpl.figure.Figure, mpl.axes.Axes]:
+) -> tuple[figure.Figure, list[axes.Axes]]:
     """Plot the distribution of molecular weight, logP and NPL-score for each
     terpene subclass.
 
@@ -246,7 +247,7 @@ def plot_violin_mw_logp_nplscore(
             ax=ax,
             order=order,
             scale="width",
-            inner=None,
+            inner=None,  # type: ignore
             palette=sns.color_palette("Dark2"),
             linewidth=1.2,
         )
@@ -263,12 +264,8 @@ def plot_violin_mw_logp_nplscore(
             size=4,
         )
         # Axes
-        # fmt: off
-        ax.set(
-            xlim=xlim, xlabel=xlabel, ylabel=ylabel, yticklabels=yticklabels
-        )
+        ax.set(xlim=xlim, xlabel=xlabel, ylabel=ylabel, yticklabels=yticklabels)
 
-    # fmt: on
     order = list(top_subclasses)
     # Molecular weight
     assert "molecular_weight" in data.columns
@@ -276,7 +273,7 @@ def plot_violin_mw_logp_nplscore(
         data=data_filtered,
         x="molecular_weight",
         y=feat_subclass,
-        ax=ax[0],
+        ax=ax[0],  # type: ignore
         xlim=(0, 2000),
         xlabel="Molecular weight",
         ylabel="Terpene subclass",
@@ -288,7 +285,7 @@ def plot_violin_mw_logp_nplscore(
         data=data_filtered,
         x="alogp",
         y=feat_subclass,
-        ax=ax[1],
+        ax=ax[1],  # type: ignore
         xlim=(-12, 20),
         xlabel="logP",
         ylabel="",
@@ -300,7 +297,7 @@ def plot_violin_mw_logp_nplscore(
         data=data_filtered,
         x="npl_score",
         y=feat_subclass,
-        ax=ax[2],
+        ax=ax[2],  # type: ignore
         xlim=(-1, 4),
         xlabel="Natural product-likeness score",
         ylabel="",
@@ -308,17 +305,23 @@ def plot_violin_mw_logp_nplscore(
     )
 
     # Label and adjust subplots
-    label_subplot(fig=fig, ax=ax[0], label="a", translate=(-1.05, 0))
-    label_subplot(fig=fig, ax=ax[1], label="b", translate=(-0.25, 0))
-    label_subplot(fig=fig, ax=ax[2], label="c", translate=(-0.25, 0))
+    label_subplot(
+        fig=fig, ax=ax[0], label="a", translate=(-1.05, 0)  # type: ignore
+    )
+    label_subplot(
+        fig=fig, ax=ax[1], label="b", translate=(-0.25, 0)  # type: ignore
+    )
+    label_subplot(
+        fig=fig, ax=ax[2], label="c", translate=(-0.25, 0)  # type: ignore
+    )
     fig.tight_layout()
 
-    return fig, ax
+    return fig, ax  # type: ignore
 
 
 def plot_lipinsky(
     data: pd.DataFrame, figsize: tuple[float, float] = (6, 8)
-) -> tuple[mpl.figure.Figure, mpl.axes.Axes]:
+) -> tuple[figure.Figure, list[axes.Axes]]:
     """Plot the Lipinsky's rule of five violations
 
     Args:
@@ -342,7 +345,13 @@ def plot_lipinsky(
 
     # Subplot a
     # Axes
-    ax = [plt.subplot2grid(shape=(nrow, ncol), loc=(0, 0), colspan=3)]
+    ax: list[axes.Axes] = []
+    ax.append(
+        plt.subplot2grid(
+            shape=(nrow, ncol), loc=(0, 0), colspan=3
+        )  # type: ignore
+    )
+    # ax=[plt.subplot2grid(shape=(nrow, ncol), loc=(0, 0), colspan=3)]
     b_left, b_bottom, b_width, b_height = ax[-1].get_position().bounds
     ax[-1].set_position(
         [
@@ -411,9 +420,9 @@ def plot_lipinsky(
     df = 100 * pd.crosstab(
         data_filtered[feat_subclass],
         data_filtered[feat_lipinsky],
-        normalize="index",
+        normalize="index",  # type: ignore
     )
-    df = df.reindex(list(top_subclasses)).reset_index()
+    df = df.reindex(list(top_subclasses)).reset_index()  # type: ignore
     df[feat_subclass] = df[feat_subclass].map(SUBCLASS_NAME)
     # Plot
     colormap = plt.cm.get_cmap("Dark2", len(df))
@@ -441,7 +450,7 @@ def plot_lipinsky(
 
 def plot_hbond(
     data: pd.DataFrame, figsize: tuple[float, float] = (7, 10)
-) -> tuple[mpl.figure.Figure, mpl.axes.Axes]:
+) -> tuple[figure.Figure, list[axes.Axes]]:
     """Plot the distribution of hydrogen bond acceptors and donors.
 
     Args:
@@ -521,7 +530,7 @@ def plot_hbond(
             data=data_filtered,
             feature=feature,
             upper=upper,
-            color=color[-1 - i],
+            color=color[-1 - i],  # type: ignore
             title="Terpenes",
             ylabel="" if i else "Count",
             ax=ax[i],
@@ -532,7 +541,7 @@ def plot_hbond(
                 data=data_filtered[data_filtered[feat_subclass] == subclass],
                 feature=feature,
                 upper=upper,
-                color=color[j],
+                color=color[j],  # type: ignore
                 title=SUBCLASS_NAME[subclass],
                 ylabel="" if i else "Count",
                 ax=ax[2 + i + 2 * j],

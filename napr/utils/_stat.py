@@ -26,7 +26,7 @@ def percent_within(
     if data.empty:
         raise ValueError("Data cannot be empty.")
 
-    len_within = len(
-        data[data.between(min(interval), max(interval), inclusive=inclusive)]
-    )
+    len_within = data.between(
+        min(interval), max(interval), inclusive=inclusive  # type: ignore
+    ).sum()
     return 100 * len_within / len(data)
