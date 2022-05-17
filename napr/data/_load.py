@@ -40,7 +40,7 @@ def load_terpene(
             raise FileNotFoundError(f"File {path} not found.")
     else:
         if version == "21.3":
-            url = "https://drive.google.com/file/d/1wcUP7kPKtBtQftR3Llyh_cs9lT4fbu1T/view?usp=sharing"
+            url = "https://drive.google.com/u/0/uc?id=1HFjVme274zL1r7Cr_0q-RrMoZebbGekJ&export=download"
             _base.download(url=url, path=path)
 
     data = pd.read_csv(path, index_col=0, low_memory=False, compression="infer")
