@@ -28,7 +28,7 @@ def _filter_subclasses(data: pd.DataFrame) -> pd.DataFrame:
     return data[data["chemicalSubClass"].isin(SUBCLASS_NAME.keys())]
 
 
-def plot_dist_subclass_mw_logp_nplscore(
+def _plot_dist_subclass_mw_logp_nplscore(
     data: pd.DataFrame, figsize: tuple[float, float] = (9, 8)
 ) -> tuple[figure.Figure, list[axes.Axes]]:
     """Plot the distribution of subclasses, molecular weight, logP, and
@@ -202,7 +202,7 @@ def plot_dist_subclass_mw_logp_nplscore(
     return fig, ax
 
 
-def plot_violin_mw_logp_nplscore(
+def _plot_violin_mw_logp_nplscore(
     data: pd.DataFrame, figsize: tuple[float, float] = (8.5, 3.5)
 ) -> tuple[figure.Figure, list[axes.Axes]]:
     """Plot the distribution of molecular weight, logP and NPL-score for each
@@ -319,7 +319,7 @@ def plot_violin_mw_logp_nplscore(
     return fig, ax  # type: ignore
 
 
-def plot_lipinsky(
+def _plot_lipinsky(
     data: pd.DataFrame, figsize: tuple[float, float] = (6, 8)
 ) -> tuple[figure.Figure, list[axes.Axes]]:
     """Plot the Lipinsky's rule of five violations
@@ -448,7 +448,7 @@ def plot_lipinsky(
     return fig, ax
 
 
-def plot_hbond(
+def _plot_hbond(
     data: pd.DataFrame, figsize: tuple[float, float] = (7, 10)
 ) -> tuple[figure.Figure, list[axes.Axes]]:
     """Plot the distribution of hydrogen bond acceptors and donors.
