@@ -3,7 +3,7 @@
 import pandas as pd
 
 from napr import plotting
-from . import explore
+from napr.apps.coconut.terpene import explore
 
 
 class Terpene:
