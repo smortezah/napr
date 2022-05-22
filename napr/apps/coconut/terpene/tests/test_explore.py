@@ -10,10 +10,7 @@ import pytest
 from napr.apps.coconut.terpene.explore import (
     _filter_subclasses,
     SUBCLASS_NAME,
-    plot_dist_subclass_mw_logp_nplscore,
-    plot_violin_mw_logp_nplscore,
-    plot_lipinsky,
-    plot_hbond,
+    Plot,
 )
 
 
@@ -134,7 +131,8 @@ def test_filter_subclasses(data):
 
 def test_plot_dist_subclass_mw_logp_nplscore(data):
     """Test the plot_dist_subclass_mw_logp_nplscore function."""
-    fig, ax = plot_dist_subclass_mw_logp_nplscore(data)
+    plot = Plot(data)
+    fig, ax = plot.dist_subclass_mw_logp_nplscore()
 
     assert isinstance(fig, figure.Figure)
     for axis in ax:
@@ -145,7 +143,8 @@ def test_plot_dist_subclass_mw_logp_nplscore(data):
 
 def test_plot_violin_mw_logp_nplscore(data):
     """Test the plot_violin_mw_logp_nplscore function."""
-    fig, ax = plot_violin_mw_logp_nplscore(data)
+    plot = Plot(data)
+    fig, ax = plot.violin_mw_logp_nplscore()
 
     assert isinstance(fig, figure.Figure)
     for axis in ax:
@@ -156,7 +155,8 @@ def test_plot_violin_mw_logp_nplscore(data):
 
 def test_plot_lipinsky(data):
     """Test the plot_lipinsky function."""
-    fig, ax = plot_lipinsky(data)
+    plot = Plot(data)
+    fig, ax = plot.lipinsky()
 
     assert isinstance(fig, figure.Figure)
     for axis in ax:
@@ -168,7 +168,8 @@ def test_plot_lipinsky(data):
 def test_plot_hbond(data):
     """Test the plot_hbond function."""
     with pytest.warns(DeprecationWarning):
-        fig, ax = plot_hbond(data)
+        plot = Plot(data)
+        fig, ax = plot.hbond()
 
     assert isinstance(fig, figure.Figure)
     for axis in ax:
