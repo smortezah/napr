@@ -6,6 +6,7 @@ import pandas as pd
 import pytest
 
 from napr.apps.coconut.terpene._base import Terpene
+from napr.apps.coconut.terpene import explore
 
 
 @pytest.fixture(scope="module")
@@ -29,6 +30,8 @@ def test_base_class(data):
     terpene = Terpene(data=data)
 
     assert hasattr(terpene, "data")
-
     assert isinstance(terpene.data, pd.DataFrame)
     assert terpene.data.shape == (10, 3)
+
+    assert hasattr(terpene, "plot")
+    assert isinstance(terpene.plot, explore.Plot)
