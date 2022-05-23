@@ -3,7 +3,8 @@
 import pandas as pd
 
 from napr import plotting
-from napr.apps.coconut.terpene import explore
+from . import explore
+from .preprocessing import Preprocessor
 
 
 class Terpene:
@@ -16,3 +17,6 @@ class Terpene:
         plotting.set_plt_style()
 
         self.plot = explore.Plot(self.data)
+
+    def preprocess(self):
+        return Preprocessor(self.data)
