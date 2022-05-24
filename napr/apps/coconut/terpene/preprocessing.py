@@ -17,6 +17,7 @@ class Preprocessor:
         data: pd.DataFrame,
     ):
         self.data = data
+        
         # Defaults
         self.train_size = 0.75
         self.random_state = 777
@@ -44,16 +45,17 @@ class Preprocessor:
         if "dropped_columns" in kwargs:
             self.dropped_columns = kwargs["dropped_columns"]
 
-        self.split_bcutDescriptor()
+        self._split_bcutDescriptor()
 
-        # Categorical encoding
-        self.extract_tax()
+        self._extract_tax()
+
         train, test = train_test_split(
             self.data,
             train_size=self.train_size,
             random_state=self.random_state,
         )
-        train, test = self.encode(
+
+        train, test = self._encode(
             train, test, columns=["directParentClassification"]
         )
 
@@ -66,7 +68,7 @@ class Preprocessor:
         # Drop columns
         self.data.drop(self.dropped_columns, axis=1, inplace=True)
 
-    def split_bcutDescriptor(self):
+    def _split_bcutDescriptor(self):
         splitted = (
             self.data["bcutDescriptor"]
             .apply(lambda x: x[1:-1])
@@ -77,38 +79,13 @@ class Preprocessor:
         splitted = splitted.astype("float64")
         self.data = pd.concat([self.data, splitted], axis=1)
 
-    def extract_tax(self):
+    def _extract_tax(self):
         for tax in ["plants", "marine", "bacteria", "fungi"]:
             self.data.loc[:, "textTaxa_" + tax] = (
                 self.data["textTaxa"].str.contains(tax).astype("int64")
             )
 
-    def encode(self, train, test, columns):
-        encoder = OrdinalEncoder(
-            handle_unknown="use_encoded_value", unknown_value=self.unknown_value
-        )
-        encoder.fit(train[columns])
-        encoded_train = pd.DataFrame(
-            encoder.transform(train[columns]),
-            columns=["encoded_" + col for col in columns],
-            index=train[columns].index,
-        )
-        encoded_test = pd.DataFrame(
-            encoder.transform(test[columns]),
-            columns=["encoded_" + col for col in columns],
-            index=test[columns].index,
-        )
-        train = pd.concat([train, encoded_train], axis=1)
-        test = pd.concat([test, encoded_test], axis=1)
-        return train, test
-
-    def impute(self, columns):
-        imputer = SimpleImputer(strategy="median")
-
-    def feature_scale(self, columns):
-        scaler = StandardScaler()
-
-    def transform(self, transformer, train, test, prefix: str = ""):
+    def _transform(self, transformer, train, test, prefix: str = ""):
         if not prefix:
             columns = train.columns
         else:
@@ -126,3 +103,20 @@ class Preprocessor:
             index=test.index,
         )
         return transformed_train, transformed_test
+
+    def _encode(self, train, test, columns):
+        encoder = OrdinalEncoder(
+            handle_unknown="use_encoded_value", unknown_value=self.unknown_value
+        )
+        encoded_train, encoded_test = self._transform(
+            encoder, train[columns], test[columns], prefix="encoded"
+        )
+        train = pd.concat([train, encoded_train], axis=1)
+        test = pd.concat([test, encoded_test], axis=1)
+        return train, test
+
+    def _impute(self, columns):
+        imputer = SimpleImputer(strategy="median")
+
+    def _feature_scale(self, columns):
+        scaler = StandardScaler()
