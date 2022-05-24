@@ -18,5 +18,6 @@ class Terpene:
 
         self.plot = explore.Plot(self.data)
 
-    def preprocess(self):
-        return Preprocessor(self.data)
+    def preprocess(self, **kwargs):
+        preprocessor = Preprocessor(self.data)
+        preprocessor.preprocess(**kwargs)
