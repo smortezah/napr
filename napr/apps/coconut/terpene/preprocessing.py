@@ -34,6 +34,7 @@ class Preprocessor:
             "chemicalSuperClass",
             "directParentClassification",  # encode()
         ]
+        self.target_columns = ["chemicalSubClass"]
 
     def preprocess(self, **kwargs):
         if "train_size" in kwargs:
@@ -44,29 +45,36 @@ class Preprocessor:
             self.unknown_value = kwargs["unknown_value"]
         if "dropped_columns" in kwargs:
             self.dropped_columns = kwargs["dropped_columns"]
+        if "target_columns" in kwargs:
+            self.target_columns = kwargs["target_columns"]
 
         self._split_bcutDescriptor()
 
-        self._extract_tax()
+        # self._extract_tax()
 
-        train, test = train_test_split(
-            self.data,
-            train_size=self.train_size,
-            random_state=self.random_state,
-        )
+        # train, test = train_test_split(
+        #     self.data,
+        #     train_size=self.train_size,
+        #     random_state=self.random_state,
+        # )
 
-        train, test = self._encode(
-            train, test, columns=["directParentClassification"]
-        )
+        # self._encode(train, test)
 
-        # Imputation
+        # # Imputation
+        # self._impute(train, test)
 
-        # Feature scaling
+        # # Feature scaling
+        # self._feature_scale(train, test)
 
-        # Join train and test into self.data
+        # # Concatenate train and test into self.data
+        # self.data = pd.concat([train, test], axis=0)
+        # self.data.sort_index(inplace=True)
 
-        # Drop columns
-        self.data.drop(self.dropped_columns, axis=1, inplace=True)
+        # print(self.data.info())
+        # # Drop columns
+        # self.data = self.data.drop(self.dropped_columns, axis=1)
+        # print(self.data.info())
+        return self.data
 
     def _split_bcutDescriptor(self):
         splitted = (
@@ -85,7 +93,7 @@ class Preprocessor:
                 self.data["textTaxa"].str.contains(tax).astype("int64")
             )
 
-    def _transform(self, transformer, train, test, prefix: str = ""):
+    def _fit_transform(self, transformer, train, test, prefix: str = ""):
         if not prefix:
             columns = train.columns
         else:
@@ -104,19 +112,29 @@ class Preprocessor:
         )
         return transformed_train, transformed_test
 
-    def _encode(self, train, test, columns,inplace=True):
+    def _encode(self, train, test):
+        columns = ["directParentClassification"]
         encoder = OrdinalEncoder(
             handle_unknown="use_encoded_value", unknown_value=self.unknown_value
         )
-        encoded_train, encoded_test = self._transform(
-            encoder, train[columns], test[columns], prefix="encoded"
-        )
-        train = pd.concat([train, encoded_train], axis=1)
-        test = pd.concat([test, encoded_test], axis=1)
-        return train, test
+        train[columns] = encoder.fit_transform(train[columns])
+        test[columns] = encoder.transform(test[columns])
 
-    def _impute(self, columns):
+    def _impute(self, train, test):
+        ignored_columns = self.dropped_columns + self.target_columns
+        columns = train.columns[~train.columns.isin(ignored_columns)]
         imputer = SimpleImputer(strategy="median")
+        train[columns] = imputer.fit_transform(train[columns])
+        test[columns] = imputer.transform(test[columns])
 
-    def _feature_scale(self, columns):
+    def _feature_scale(self, train, test):
+        ignored_columns = (
+            self.dropped_columns
+            + self.target_columns
+            + list(train.columns[train.columns.str.contains("textTaxa")])
+            + ["contains_sugar"]
+        )
+        columns = train.columns[~train.columns.isin(ignored_columns)]
         scaler = StandardScaler()
+        train[columns] = scaler.fit_transform(train[columns])
+        test[columns] = scaler.transform(test[columns])

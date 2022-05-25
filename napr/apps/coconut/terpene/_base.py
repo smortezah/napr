@@ -20,4 +20,4 @@ class Terpene:
 
     def preprocess(self, **kwargs):
         preprocessor = Preprocessor(self.data)
-        preprocessor.preprocess(**kwargs)
+        self.data = preprocessor.preprocess(**kwargs)
