@@ -17,7 +17,7 @@ class Preprocessor:
         data: pd.DataFrame,
     ):
         self.data = data
-        
+
         # Defaults
         self.train_size = 0.75
         self.random_state = 777
@@ -104,7 +104,7 @@ class Preprocessor:
         )
         return transformed_train, transformed_test
 
-    def _encode(self, train, test, columns):
+    def _encode(self, train, test, columns,inplace=True):
         encoder = OrdinalEncoder(
             handle_unknown="use_encoded_value", unknown_value=self.unknown_value
         )
