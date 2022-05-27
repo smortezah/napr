@@ -5,13 +5,13 @@ import time
 from datetime import timedelta
 
 
-def log(_func=None, *, message=""):
+def info(_func=None, *, message: str):
     """Decorator to print a message before and after the function is called, and
-    also the time it takes to run the function.
+    also the run time.
 
     Args:
         _func (optional): Called function. Defaults to None.
-        message (str, optional): The message to be printed. Defaults to "".
+        message (str): The message to be printed. Defaults to "".
     """
 
     def decor(func):
@@ -23,10 +23,8 @@ def log(_func=None, *, message=""):
             end_time = time.perf_counter()
             delta = timedelta(seconds=end_time - start_time)
             hours, minutes, seconds = str(delta).split(":")
-            # run_time = f"{delta.hours}:{delta.minutes}:{delta.seconds}"
-            print(
-                f"{message} done in {hours}h{minutes}m{round(float(seconds))}s."
-            )
+            seconds = str(round(float(seconds)))
+            print(f"{message} finished in {hours}h:{minutes}m:{seconds}s.")
             return result
 
         return wrapper

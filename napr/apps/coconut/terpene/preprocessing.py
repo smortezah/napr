@@ -1,22 +1,22 @@
-"""Preprocessing terpenes data."""
+"""Preprocessing the terpenes data."""
 
 import numpy as np
 import pandas as pd
 
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import (
-    OrdinalEncoder,
-    StandardScaler,
-)
+from sklearn.preprocessing import OrdinalEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
 
+RANDOM_STATE = 777
+TARGET =  ["chemicalSubClass"]
 
-class Preprocessor:
+
+class DataCleanse:
     def __init__(self, data: pd.DataFrame) -> None:
         self.data = data
 
         # Defaults
-        self.random_state = 777
+        self.random_state = RANDOM_STATE
         self.unknown_value = 9999
         self.dropped_columns = [
             "_id",
@@ -29,16 +29,16 @@ class Preprocessor:
             "chemicalClass",
             "chemicalSuperClass",
         ]
-        self.target_columns = ["chemicalSubClass"]
+        self.target_columns = TARGET
 
-    def preprocess(self, **kwargs) -> pd.DataFrame:
-        """Preprocess the terpene data.
+    def data_cleanse(self, **kwargs) -> pd.DataFrame:
+        """Cleanse the terpene data.
 
         Args:
-            **kwargs: Keyword arguments passed to preprocessing functions.
+            **kwargs: Keyword arguments passed to cleansing functions.
 
         Returns:
-            pd.DataFrame: The preprocessed data.
+            pd.DataFrame: The cleansed data.
         """
         if "random_state" in kwargs:
             self.random_state = kwargs["random_state"]
@@ -133,3 +133,15 @@ class Preprocessor:
         scaler = StandardScaler()
         train[columns] = scaler.fit_transform(train[columns])
         test[columns] = scaler.transform(test[columns])
+
+
+class DimReduce:
+    def __init__(self, data: pd.DataFrame) -> None:
+        self.data = data
+
+        # Defaults
+        self.target_columns = TARGET
+
+    def dim_reduce(self, **kwargs) -> pd.DataFrame:
+
+        return self.data
