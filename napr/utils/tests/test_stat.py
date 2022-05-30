@@ -1,4 +1,5 @@
 """Test the Statistical calculation functions."""
+
 import pandas as pd
 
 import pytest

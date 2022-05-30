@@ -1,28 +1,9 @@
-"""Test the base class for the terpene app."""
+"""Test the base class of the terpene app."""
 
-import random
 import pandas as pd
-
-import pytest
 
 from napr.apps.coconut.terpene._base import Terpene
 from napr.apps.coconut.terpene import explore
-
-
-@pytest.fixture(scope="module")
-def data():
-    """Create a test pandas DataFrame."""
-
-    def gen_rand(N=10):
-        return [random.random() for _ in range(N)]
-
-    return pd.DataFrame(
-        {
-            "a": gen_rand(),
-            "b": gen_rand(),
-            "c": gen_rand(),
-        }
-    )
 
 
 def test_base_class(data):
@@ -31,7 +12,24 @@ def test_base_class(data):
 
     assert hasattr(terpene, "data")
     assert isinstance(terpene.data, pd.DataFrame)
-    assert terpene.data.shape == (10, 3)
+    assert terpene.data.shape == (85, 7)
 
     assert hasattr(terpene, "plot")
     assert isinstance(terpene.plot, explore.Plot)
+
+
+def test_preprocess(data):
+    """Test the preprocessing method."""
+    terpene = Terpene(data=data)
+
+    print(terpene.data.columns)
+
+    terpene.preprocess(
+        random_state=777,
+        unknown_value=9999,
+        dropped_columns=["molecular_weight"],
+        target_columns=["chemicalSubClass"],
+    )
+
+    assert terpene.data.shape == (85, 6)
+    assert "chemicalClass" not in terpene.data.columns

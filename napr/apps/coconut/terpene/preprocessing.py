@@ -6,14 +6,17 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OrdinalEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
+from sklearn.decomposition import PCA
+
+from napr.utils import all_but
 
 RANDOM_STATE = 777
-TARGET =  ["chemicalSubClass"]
+TARGET = ["chemicalSubClass"]
 
 
-class DataCleanse:
+class Preprocess:
     def __init__(self, data: pd.DataFrame) -> None:
-        self.data = data
+        self.data = data.copy()
 
         # Defaults
         self.random_state = RANDOM_STATE
@@ -31,14 +34,14 @@ class DataCleanse:
         ]
         self.target_columns = TARGET
 
-    def data_cleanse(self, **kwargs) -> pd.DataFrame:
-        """Cleanse the terpene data.
+    def preprocess(self, **kwargs) -> pd.DataFrame:
+        """Preprocessing of the terpene data.
 
         Args:
-            **kwargs: Keyword arguments passed to cleansing functions.
+            **kwargs: Keyword arguments passed to preprocessing functions.
 
         Returns:
-            pd.DataFrame: The cleansed data.
+            pd.DataFrame: The preprocessed data.
         """
         if "random_state" in kwargs:
             self.random_state = kwargs["random_state"]
@@ -62,12 +65,19 @@ class DataCleanse:
 
         self.data = pd.concat([train, test], axis=0)
         # self.data.sort_index(inplace=True)
-        self.data.drop(self.dropped_columns, axis=1, inplace=True)
+        target_data = self.data[self.target_columns]
+        self.data.drop(
+            self.dropped_columns + self.target_columns, axis=1, inplace=True
+        )
+        self.data = pd.concat([self.data, target_data], axis=1)
         return self.data
 
     def _split_bcutDescriptor(self) -> None:
         """Split the bcutDescriptor column into multiple columns and concatenate
         to the data."""
+        if 'bcutDescriptor' not in self.data.columns:
+            return None
+
         splitted = (
             self.data["bcutDescriptor"]
             .apply(lambda x: x[1:-1])
@@ -81,6 +91,9 @@ class DataCleanse:
     def _extract_tax(self) -> None:
         """Extract the taxonomy from the textTaxa column and concatenate to the
         data."""
+        if 'textTaxa' not in self.data.columns:
+            return None
+
         for tax in ["plants", "marine", "bacteria", "fungi"]:
             self.data.loc[:, "textTaxa_" + tax] = (
                 self.data["textTaxa"].str.contains(tax).astype("int64")
@@ -94,6 +107,10 @@ class DataCleanse:
             test (pd.DataFrame): The testing data.
         """
         columns = ["directParentClassification"]
+
+        for col in columns:
+            if col not in train.columns:
+                return None
 
         encoder = OrdinalEncoder(
             handle_unknown="use_encoded_value", unknown_value=self.unknown_value
@@ -137,11 +154,32 @@ class DataCleanse:
 
 class DimReduce:
     def __init__(self, data: pd.DataFrame) -> None:
-        self.data = data
+        self.data = data.copy()
 
         # Defaults
         self.target_columns = TARGET
+        self.model = PCA(n_components=0.95, random_state=RANDOM_STATE)
 
     def dim_reduce(self, **kwargs) -> pd.DataFrame:
+        """Dimension reducttion of the terpene data.
 
+        Args:
+            **kwargs: Keyword arguments passed to dimeension reduction
+                functions.
+
+        Returns:
+            pd.DataFrame: The dimension reduced data.
+        """
+        if "model" in kwargs:
+            self.model = kwargs["model"]
+
+        columns = all_but(self.data.columns, self.target_columns)
+        data_reduced = self.model.fit_transform(self.data[columns])
+        df_reduced = pd.DataFrame(
+            data=data_reduced,
+            index=self.data.index,
+            columns=["d" + str(i) for i in range(data_reduced.shape[1])],
+        )
+        self.data.drop(columns, axis=1, inplace=True)
+        self.data = pd.concat([df_reduced, self.data], axis=1)
         return self.data
