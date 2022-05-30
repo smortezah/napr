@@ -10,6 +10,9 @@ CURR_DIR = os.getcwd()
 
 def download(url: str, path: str = CURR_DIR, chunk_size: int = 1024) -> None:
     """Download a file from a URL."""
+    if not url:
+        raise ValueError("url must not be empty.")
+
     try:
         responce = requests.get(url, stream=True)
         responce.raise_for_status()

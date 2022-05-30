@@ -49,6 +49,8 @@ def rand_list_string(
     """
     if not isinstance(letters, str):
         raise TypeError("letters must be a string.")
+    if not letters:
+        raise ValueError("letters must not be empty.")
     if len_str < 1:
         raise ValueError("len_str must be greater than 0.")
     if size < 1:

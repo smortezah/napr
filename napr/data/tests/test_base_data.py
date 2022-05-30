@@ -7,5 +7,5 @@ from napr.data._base import download
 
 def test_download():
     """Test the download function."""
-    with pytest.raises(SystemExit):
+    with pytest.raises(ValueError):
         download(url="")

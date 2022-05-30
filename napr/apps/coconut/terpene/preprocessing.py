@@ -49,8 +49,11 @@ class Preprocess:
             self.unknown_value = kwargs["unknown_value"]
         if "dropped_columns" in kwargs:
             self.dropped_columns = kwargs["dropped_columns"]
-        if "target_columns" in kwargs:
-            self.target_columns = kwargs["target_columns"]
+        if "target_columns" in kwargs:#TODO
+            if kwargs["target_columns"] in TARGET:
+                self.target_columns = kwargs["target_columns"]
+            else:
+                raise ValueError(f"The target column must be in {TARGET}")
 
         self._split_bcutDescriptor()
         self._extract_tax()
@@ -75,7 +78,7 @@ class Preprocess:
     def _split_bcutDescriptor(self) -> None:
         """Split the bcutDescriptor column into multiple columns and concatenate
         to the data."""
-        if 'bcutDescriptor' not in self.data.columns:
+        if "bcutDescriptor" not in self.data.columns:
             return None
 
         splitted = (
@@ -91,7 +94,7 @@ class Preprocess:
     def _extract_tax(self) -> None:
         """Extract the taxonomy from the textTaxa column and concatenate to the
         data."""
-        if 'textTaxa' not in self.data.columns:
+        if "textTaxa" not in self.data.columns:
             return None
 
         for tax in ["plants", "marine", "bacteria", "fungi"]:
