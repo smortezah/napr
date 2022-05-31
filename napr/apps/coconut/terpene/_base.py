@@ -30,8 +30,6 @@ class Terpene:
                     777.
                 unknown_value: The unknown value for encoding. Defaults to 9999.
                 dropped_columns: The dropped columns.
-                target_columns: The target columns. Defaults to
-                    ['chemicalSubClass'].
         """
         preprocessor = Preprocess(data=self.data)
         self.data = preprocessor.preprocess(**kwargs)

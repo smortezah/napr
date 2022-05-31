@@ -1,15 +1,26 @@
 """Sharing fixtures across multiple files."""
 
+import random
+
 import pandas as pd
 
 import pytest
 
-from napr.utils.random import rand_list_float, rand_list_string
+from napr.utils.random import rand_list_int, rand_list_float, rand_list_string
+
+
+def _rand_bcutDescriptor(size: int = 1) -> list[str]:
+    """Generate a list of random bcutDescriptors."""
+    result = []
+    for _ in range(size):
+        rand_list = rand_list_int(size=6)
+        result.append("[" + ",".join(map(str, rand_list)) + "]")
+    return result
 
 
 @pytest.fixture(scope="module")
 def data():
-    """Return the data for the tests."""
+    """The data for the tests."""
     chemicalSubClass_21_3 = [
         "Diterpenoids",
         "Cholestane steroids",
@@ -97,6 +108,7 @@ def data():
         "Delta-1,4-steroids",
         "Glycerophosphonocholines",
     ]
+    size = len(chemicalSubClass_21_3)
 
     data = {"chemicalSubClass": chemicalSubClass_21_3}
     for column in [
@@ -107,6 +119,13 @@ def data():
         "hBondAcceptorCount",
         "hBondDonorCount",
     ]:
-        data[column] = rand_list_float(size=len(chemicalSubClass_21_3))
+        data[column] = rand_list_float(size=size)
 
+    data["bcutDescriptor"] = _rand_bcutDescriptor(size=size)
     return pd.DataFrame(data)
+
+
+@pytest.fixture(scope="module")
+def dropped_columns():
+    """The columns to drop."""
+    return ["molecular_weight", "bcutDescriptor"]

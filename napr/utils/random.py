@@ -4,6 +4,28 @@ import random
 import string
 
 
+def rand_list_int(low: int = 0, high: int = 9, size: int = 1) -> list[int]:
+    """Generate a list of random integers.
+
+    Args:
+        low (int, optional): The lower bound of the random integers. Defaults to
+            0.
+        high (int, optional): The upper bound of the random integers. Defaults
+            to 9.
+        size (int, optional): The size of the list. Defaults to 1.
+
+    Raises:
+        ValueError: if size is less than 1.
+
+    Returns:
+        list[int]: A list of random integers.
+    """
+    if size < 1:
+        raise ValueError("size must be greater than 0.")
+
+    return random.sample(population=range(low, high + 1), k=size)
+
+
 def rand_list_float(
     low: float = 0.0, high: float = 1.0, size: int = 1
 ) -> list[float]:

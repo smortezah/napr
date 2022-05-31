@@ -27,10 +27,10 @@ class Preprocess:
             "name",
             "iupac_name",
             "molecular_formula",
-            "textTaxa",  # _extract_tax()
-            "bcutDescriptor",  # _split_bcutDescriptor()
-            "chemicalClass",
-            "chemicalSuperClass",
+            "textTaxa",  # By _extract_tax()
+            "bcutDescriptor",  # By _split_bcutDescriptor()
+            "chemicalClass",  # Target is "chemicalSubClass"
+            "chemicalSuperClass",  # Target is "chemicalSubClass"
         ]
         self.target_columns = TARGET
 
@@ -49,11 +49,6 @@ class Preprocess:
             self.unknown_value = kwargs["unknown_value"]
         if "dropped_columns" in kwargs:
             self.dropped_columns = kwargs["dropped_columns"]
-        if "target_columns" in kwargs:#TODO
-            if kwargs["target_columns"] in TARGET:
-                self.target_columns = kwargs["target_columns"]
-            else:
-                raise ValueError(f"The target column must be in {TARGET}")
 
         self._split_bcutDescriptor()
         self._extract_tax()
@@ -174,6 +169,10 @@ class DimReduce:
             pd.DataFrame: The dimension reduced data.
         """
         if "model" in kwargs:
+            if isinstance(kwargs["model"], str):
+                raise ValueError(
+                    "model object must have implemented fit_transform method."
+                )
             self.model = kwargs["model"]
 
         columns = all_but(self.data.columns, self.target_columns)
