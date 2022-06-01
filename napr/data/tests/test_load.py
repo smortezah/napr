@@ -10,3 +10,6 @@ def test_load_terpene():
     # Supported version is 21.3
     with pytest.raises(ValueError):
         load_terpene(download=False, version="20")
+
+    with pytest.raises(FileNotFoundError):
+        load_terpene(download=False, path="not_a_path")
