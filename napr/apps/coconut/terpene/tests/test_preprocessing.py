@@ -1,5 +1,7 @@
 """Test the preprocessing module."""
 
+import pandas as pd
+
 import pytest
 
 from napr.apps.coconut.terpene.preprocessing import Preprocess
@@ -12,10 +14,10 @@ def preprocessor(data):
 
 def test_split_bcutDescriptor(data, preprocessor):
     """Test the _split_bcutDescriptor function."""
-    preprocessor.data.pop("bcutDescriptor")
+    bcutDescriptor = preprocessor.data.pop("bcutDescriptor")
     assert not preprocessor._split_bcutDescriptor()
 
-    preprocessor.data = data.copy()
+    preprocessor.data = pd.concat([preprocessor.data, bcutDescriptor], axis=1)
     preprocessor._split_bcutDescriptor()
     for column in ["bcutDescriptor_" + str(i) for i in range(6)]:
         assert column in preprocessor.data.columns
