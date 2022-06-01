@@ -1,21 +1,17 @@
 """Sharing fixtures across multiple files."""
 
-import random
-
 import pandas as pd
+
+from sklearn.model_selection import train_test_split
 
 import pytest
 
-from napr.utils.random import rand_list_int, rand_list_float, rand_list_string
-
-
-def _rand_bcutDescriptor(size: int = 1) -> list[str]:
-    """Generate a list of random bcutDescriptors."""
-    result = []
-    for _ in range(size):
-        rand_list = rand_list_int(size=6)
-        result.append("[" + ",".join(map(str, rand_list)) + "]")
-    return result
+from napr.utils.random import (
+    rand_list_int,
+    rand_list_float,
+    rand_list_choices,
+    rand_list_string,
+)
 
 
 @pytest.fixture(scope="module")
@@ -110,6 +106,20 @@ def data():
     ]
     size = len(chemicalSubClass_21_3)
 
+    def _rand_bcutDescriptor():
+        """Generate a list of random bcutDescriptor."""
+        result = []
+        for _ in range(size):
+            rand_list = rand_list_int(size=6)
+            result.append("[" + ",".join(map(str, rand_list)) + "]")
+        return result
+
+    def _rand_textTaxa():
+        """Generate a list of random textTaxa."""
+        return rand_list_choices(
+            elements=["plants", "marine", "bacteria", "fungi"], size=size
+        )
+
     data = {"chemicalSubClass": chemicalSubClass_21_3}
     for column in [
         "molecular_weight",
@@ -120,12 +130,23 @@ def data():
         "hBondDonorCount",
     ]:
         data[column] = rand_list_float(size=size)
-
-    data["bcutDescriptor"] = _rand_bcutDescriptor(size=size)
+    data["bcutDescriptor"] = _rand_bcutDescriptor()
+    data["textTaxa"] = _rand_textTaxa()
+    data["directParentClassification"] = rand_list_string(len_str=5, size=size)
     return pd.DataFrame(data)
 
 
 @pytest.fixture(scope="module")
 def dropped_columns():
     """The columns to drop."""
-    return ["molecular_weight", "bcutDescriptor"]
+    return ["molecular_weight", "bcutDescriptor", "textTaxa"]
+
+
+@pytest.fixture(scope="module")
+def train_test_data(data, dropped_columns):
+    """The training and testing data."""
+    data_clean = data.drop(dropped_columns, axis=1, inplace=False)
+    train_data, test_data = train_test_split(
+        data_clean, test_size=0.25, random_state=777
+    )
+    return train_data, test_data

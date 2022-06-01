@@ -1,6 +1,11 @@
 """Test the random module."""
 
-from napr.utils.random import rand_list_int, rand_list_float, rand_list_string
+from napr.utils.random import (
+    rand_list_int,
+    rand_list_float,
+    rand_list_string,
+    rand_list_choices,
+)
 
 import pytest
 
@@ -13,7 +18,6 @@ def test_rand_list_int(low, high, size):
 
     rand_list = rand_list_int(low, high, size)
     assert len(rand_list) == size
-    assert len(set(rand_list)) == size
     for item in rand_list:
         assert low <= item <= high
 
@@ -28,7 +32,6 @@ def test_rand_list_float(low, high, size):
 
     rand_list = rand_list_float(low, high, size)
     assert len(rand_list) == size
-    assert len(set(rand_list)) == size
     for item in rand_list:
         assert low <= item <= high
 
@@ -50,6 +53,25 @@ def test_rand_list_string(letters, len_str, size):
 
     rand_list = rand_list_string(letters, len_str, size)
     assert len(rand_list) == size
-    assert len(set(rand_list)) == size
     for item in rand_list:
         assert len(item) == len_str
+
+
+@pytest.mark.parametrize(
+    "elements,size", [(["a", "b", "c"], 1), (["ab", "bc", "cd"], 3)]
+)
+def test_rand_list_choices(elements, size):
+    """Test the rand_list_choices function."""
+    with pytest.raises(TypeError):
+        rand_list_choices(elements=123, size=1)
+
+    with pytest.raises(ValueError):
+        rand_list_choices(elements=[], size=2)
+
+    with pytest.raises(ValueError):
+        rand_list_choices(elements=["a", "b", "c"], size=0)
+
+    rand_list = rand_list_choices(elements, size)
+    assert len(rand_list) == size
+    for item in rand_list:
+        assert item in elements

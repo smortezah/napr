@@ -24,7 +24,8 @@ def test_base_class(data):
 
 def test_preprocess(data, dropped_columns):
     """Test the preprocessing method."""
-    len_expanded_bcutDescriptor = 6
+    len_expanded_bcutDescriptor = 6  # bcutDescriptor is a string of 6 numbers
+    len_expanded_textTaxa = 4  # textTaxa: plants, marine, bacteria, fungi
 
     terpene = Terpene(data=data)
     terpene.preprocess(
@@ -35,7 +36,10 @@ def test_preprocess(data, dropped_columns):
 
     assert terpene.data.shape == (
         data.shape[0],
-        data.shape[1] + len_expanded_bcutDescriptor - len(dropped_columns),
+        data.shape[1]
+        + len_expanded_bcutDescriptor
+        + len_expanded_textTaxa
+        - len(dropped_columns),
     )
     assert "chemicalClass" not in terpene.data.columns
 

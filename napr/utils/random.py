@@ -23,7 +23,7 @@ def rand_list_int(low: int = 0, high: int = 9, size: int = 1) -> list[int]:
     if size < 1:
         raise ValueError("size must be greater than 0.")
 
-    return random.sample(population=range(low, high + 1), k=size)
+    return [random.randint(low, high) for _ in range(size)]
 
 
 def rand_list_float(
@@ -53,7 +53,7 @@ def rand_list_float(
 def rand_list_string(
     letters: str = string.ascii_lowercase, len_str: int = 1, size: int = 1
 ) -> list[str]:
-    """_summary_
+    """Generate a list of random strings.
 
     Args:
         letters (str, optional): The letters to use in the random strings.
@@ -63,6 +63,7 @@ def rand_list_string(
 
     Raises:
         TypeError: if letters is not a string.
+        ValueError: if letters is empty.
         ValueError: if len_str is less than 1.
         ValueError: if size is less than 1.
 
@@ -78,4 +79,33 @@ def rand_list_string(
     if size < 1:
         raise ValueError("size must be greater than 0.")
 
-    return ["".join(random.choices(letters, k=len_str)) for _ in range(size)]
+    return [
+        "".join(random.choices(population=letters, k=len_str))
+        for _ in range(size)
+    ]
+
+
+def rand_list_choices(elements: list, size: int = 1) -> list:
+    """Generate a list of values randomly chosen from a list of elements.
+
+    Args:
+        elements (list, optional): The list of elements to choose from. Defaults
+            to [].
+        size (int, optional): The size of the list. Defaults to 1.
+
+    Raises:
+        TypeError: if elements is not a list.
+        ValueError: if elements is empty.
+        ValueError: if size is less than 1.
+
+    Returns:
+        list: A list of values randomly chosen from a list of elements.
+    """
+    if not isinstance(elements, list):
+        raise TypeError("elements must be a list.")
+    if not elements:
+        raise ValueError("elements must not be empty.")
+    if size < 1:
+        raise ValueError("size must be greater than 0.")
+
+    return random.choices(population=elements, k=size)
