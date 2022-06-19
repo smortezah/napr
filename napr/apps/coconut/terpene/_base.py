@@ -50,8 +50,8 @@ class Terpene:
             pd.DataFrame|None: The dimension reduced data, or None if inplace is
                 True.
         """
-        dim_reducer = DimReduce(data=self.data)
+        data_reduced = DimReduce(data=self.data).dim_reduce(**kwargs)
         if inplace:
-            self.data = dim_reducer.dim_reduce(**kwargs)
+            self.data = data_reduced
         else:
-            return dim_reducer.dim_reduce(**kwargs)
+            return data_reduced
