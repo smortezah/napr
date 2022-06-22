@@ -1,17 +1,15 @@
 """Helper functions."""
 
-from typing import Optional
 
-
-def all_but(all: list[str], but: Optional[list[str]]) -> list[str]:
-    """All items in all but the items in but.
+def all_but(all: list[str], but: list[str] | None) -> list[str]:
+    """All items in 'all' but the items in 'but'.
 
     Args:
-        all (list[str]): All items.
-        but (Optional[list[str]]): Items to be excluded.
+        all: All items.
+        but: Items to be excluded.
 
     Returns:
-        list[str]: All items in all but the items in but.
+        All items in 'all' but the items in 'but'.
     """
     if not but:
         return all

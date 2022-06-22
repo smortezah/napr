@@ -15,19 +15,17 @@ def load_terpene(
     If download=True, the data will be downloaded first.
 
     Args:
-        download (bool, optional): If the data should be downloaded or loaded
-            from local machine. Defaults to False.
-        path (str, optional): The path to save/load the data. Defaults to
-            current directory.
-        version (str, optional): Version of the data. Defaults to "21.3".
+        download: If the data should be downloaded or loaded from local machine.
+            Defaults to False.
+        path: The path to save/load the data. Defaults to current directory.
+        version: Version of the data. Defaults to "21.3".
 
     Raises:
         ValueError: if version is not in ["21.3"].
-        FileNotFoundError: if download=False and the data in path
-            is not found.
+        FileNotFoundError: if download=False and the data in path is not found.
 
     Returns:
-        pandas.DataFrame: The terpene data
+        The terpene data
     """
     if version not in ["21.3"]:
         raise ValueError(f"Version {version} not supported.")

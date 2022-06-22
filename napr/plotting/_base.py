@@ -2,34 +2,32 @@
 
 import os
 
-from matplotlib import (
-    figure,
-    axes,
-    text,
-    transforms,
-    pyplot as plt,
-)
+import matplotlib.pyplot as plt
+from matplotlib import transforms
+from matplotlib.figure import Figure
+from matplotlib.axes import Axes
+from matplotlib.text import Text
 
 
 def label_subplot(
-    fig: figure.Figure,
-    ax: axes.Axes,
+    fig: Figure,
+    ax: Axes,
     label: str,
     translate: tuple[float, float] = (0, 0),
     **kwargs
-) -> text.Text:
+) -> Text:
     """Label a subplot.
 
     Args:
-        fig (matplotlib.figure.Figure): The figure instance.
-        ax (matplotlib.axes.Axes): Axis of the subplot to label.
-        label (str): Label of the subplot.
-        translate (tuple[float, float], optional): Translation of the label
-            position, considering the figure's dpi. Defaults to (0, 0).
+        fig: The figure instance.
+        ax: Axis of the subplot to label.
+        label: Label of the subplot.
+        translate: Translation of the label position, considering the figure's
+            dpi. Defaults to (0, 0).
         **kwargs: Additional keyword arguments passed to Text.
 
     Returns:
-        matplotlib.text.Text: An instance of Text.
+        A label.
     """
     trans = transforms.ScaledTranslation(
         translate[0], translate[1], fig.dpi_scale_trans
@@ -55,7 +53,7 @@ def set_plt_style(style: str = "ggplot_classic") -> None:
     """Set matplotlib plot style.
 
     Args:
-        style (str, optional): Style sheet. Defaults to 'ggplot_classic'.
+        style: Style sheet. Defaults to 'ggplot_classic'.
     """
     curr_dir = os.path.dirname(__file__)
     if style == "ggplot_classic":
