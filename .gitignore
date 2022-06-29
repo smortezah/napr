@@ -140,5 +140,8 @@ cython_debug/
 napr/data/datasets/*
 tutorials/terpene-21.3.bz2
 
+# Hyperparameter tuning - pickle files
+tutorials/tuner
+
 # .
 instruct.md
