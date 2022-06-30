@@ -88,7 +88,7 @@ def eval_classification(
             names (string) as keys.
         X: Input data.
         y: The target data (1d).
-        test_data: The test/evaluation data, in the form of (X_test, y_test). If
+        test_data: The test/validation data, in the form of (X_test, y_test). If
             not provided, the "test_size" will be considered to split the
             train-test. Defaults to None.
         test_size: Fraction of the test/evaluation data. It defaults to 0.2 in
@@ -116,6 +116,9 @@ def eval_classification(
         test_size = 0.2
 
     # Names and model objects of the estimators
+    if not isinstance(estimators, list) and not isinstance(estimators, dict):
+        estimators = [estimators]
+
     if isinstance(estimators, list):
         estimator_names = [est.__class__.__name__ for est in estimators]
         estimators = {
