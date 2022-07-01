@@ -16,16 +16,21 @@ EstimatorT = TypeVar("EstimatorT")
 
 
 def _scores_row(
-    estimator: EstimatorT,
+    estimator: str,
     time: float,
-    scoring: list[str],
-    y_test: pd.Series,
-    pred: np.ndarray,
-    sample_weight: np.ndarray,
+    scoring: list[str] = [],
+    y_test: pd.Series | None = None,
+    pred: np.ndarray | None = None,
+    sample_weight: np.ndarray | None = None,
     average: str = "weighted",
     labels: list[str] | None = None,
 ) -> dict[str, Any]:
     """Reutrns a row of the scores."""
+    if not estimator:
+        raise ValueError("estimator is required.")
+    if not time:
+        raise ValueError(f"no fitting time is associated with {estimator}.")
+
     row = {}
     row["estimator"] = estimator
     row["time"] = time
