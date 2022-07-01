@@ -23,6 +23,7 @@ To update napr to the latest version, add -U or --upgrade flag, i.e. `pip instal
 The tutorials directory include:
 
 - [Terpene-explore](https://github.com/smortezah/napr/tree/main/tutorials/Terpene-explore.ipynb): exploratory data analysis of terpenes (the COCONUT dataset) in the natural products chemical space
+- [Terpene-classification-classic](https://github.com/smortezah/napr/tree/main/tutorials/Terpene-classification-classic.ipynb): classification of terpenes with ML techniques such as kNN, random forest and xgboost
 
 ## Development
 
