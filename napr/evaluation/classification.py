@@ -76,9 +76,9 @@ def _scores_row(
 
 
 def eval_classification(
-    estimators: dict[str, EstimatorT] | list[EstimatorT],
-    X: pd.DataFrame,
-    y: pd.Series,
+    estimators: dict[str, EstimatorT] | list[EstimatorT] | EstimatorT,
+    X: pd.DataFrame | np.ndarray,
+    y: pd.Series | np.ndarray,
     test_data: tuple[pd.DataFrame, pd.Series] | None = None,
     test_size: float | None = None,
     scoring: list[str] | str | None = None,
@@ -88,9 +88,9 @@ def eval_classification(
     """Evaluate classifiers.
 
     Args:
-        estimators: The classifiers. It is either a list of scikit-learn
-            classification models or a dictionary of classifiers with their
-            names (string) as keys.
+        estimators: The classifiers. It can be either of a single scikit-learn
+            classification model, a list of models or a dictionary of
+            classifiers with their names (string) as keys.
         X: Input data.
         y: The target data (1d).
         test_data: The test/validation data, in the form of (X_test, y_test). If
@@ -106,6 +106,15 @@ def eval_classification(
     Returns:
         A dictionary mapping the score names to the evaluation results.
     """
+    if isinstance(estimators, str):
+        raise ValueError("estimator must be an sklearn model.")
+    if not estimators:
+        raise ValueError("estimators is required.")
+    if X is None or X.size == 0:
+        raise ValueError("X is required.")
+    if y is None or y.size == 0:
+        raise ValueError("y is required.")
+
     # Default metrics. If scoring is not specified, the default is used.
     METRICS = ["accuracy", "precision", "recall", "f1", "conf_mat"]
 
