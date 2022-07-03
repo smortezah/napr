@@ -4,42 +4,6 @@ import random
 import string
 
 
-def rand_list_int(low: int = 0, high: int = 9, size: int = 1) -> list[int]:
-    """Returns a list of random integers.
-
-    Args:
-        low: The lower bound of the random integers. Defaults to 0.
-        high: The upper bound of the random integers. Defaults to 9.
-        size: The size of the list. Defaults to 1.
-
-    Raises:
-        ValueError: if size is less than 1.
-    """
-    if size < 1:
-        raise ValueError("size must be greater than 0.")
-
-    return [random.randint(low, high) for _ in range(size)]
-
-
-def rand_list_float(
-    low: float = 0.0, high: float = 1.0, size: int = 1
-) -> list[float]:
-    """Returns a list of random floats.
-
-    Args:
-        low: The lower bound of the random floats. Defaults to 0.0.
-        high: The upper bound of the random floats. Defaults to 1.0.
-        size: The size of the list. Defaults to 1.
-
-    Raises:
-        ValueError: if size is less than 1.
-    """
-    if size < 1:
-        raise ValueError("size must be greater than 0.")
-
-    return [random.uniform(low, high) for _ in range(size)]
-
-
 def rand_list_string(
     letters: str = string.ascii_lowercase, len_str: int = 1, size: int = 1
 ) -> list[str]:
@@ -70,25 +34,3 @@ def rand_list_string(
         "".join(random.choices(population=letters, k=len_str))
         for _ in range(size)
     ]
-
-
-def rand_list_choices(elements: list, size: int = 1) -> list:
-    """Returns a list of values randomly chosen from a list of elements.
-
-    Args:
-        elements: The list of elements to choose from. Defaults to [].
-        size: The size of the list. Defaults to 1.
-
-    Raises:
-        TypeError: if elements is not a list.
-        ValueError: if elements is empty.
-        ValueError: if size is less than 1.
-    """
-    if not isinstance(elements, list):
-        raise TypeError("elements must be a list.")
-    if not elements:
-        raise ValueError("elements must not be empty.")
-    if size < 1:
-        raise ValueError("size must be greater than 0.")
-
-    return random.choices(population=elements, k=size)
