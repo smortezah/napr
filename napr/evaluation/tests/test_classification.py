@@ -5,7 +5,6 @@ import pytest
 import numpy as np
 import pandas as pd
 
-from sklearn.datasets import load_iris
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 
@@ -14,15 +13,15 @@ from napr.evaluation.classification import _scores_row, eval_classification
 
 def test_scores_row():
     """Test the _scores_row function."""
-    # No estimator
+    # Without estimator
     with pytest.raises(ValueError):
         _scores_row(estimator="", time=1)
 
-    # No time
+    # Without time
     with pytest.raises(ValueError):
         _scores_row(estimator="estimator", time=0)
 
-    # No y_test or pred
+    # Without y_test or pred
     with pytest.raises(ValueError):
         _scores_row(estimator="estimator", time=1, scoring=["accuracy"])
 
@@ -48,11 +47,11 @@ def test_eval_classification():
     with pytest.raises(ValueError):
         eval_classification(estimators="", X=np.array(1), y=np.array(1))
 
-    # No estimators
+    # Without estimators
     with pytest.raises(ValueError):
         eval_classification(estimators=None, X=np.array(1), y=np.array(1))
 
-    # No X
+    # Without X
     with pytest.raises(ValueError):
         eval_classification(
             estimators=KNeighborsClassifier(),
@@ -60,7 +59,7 @@ def test_eval_classification():
             y=np.array(1),
         )
 
-    # No y
+    # Without y
     with pytest.raises(ValueError):
         eval_classification(
             estimators=KNeighborsClassifier(),
@@ -69,11 +68,12 @@ def test_eval_classification():
         )
 
     # Data
-    iris = load_iris()
+    X = np.random.rand(10, 3)
+    y = np.random.randint(low=0, high=2, size=10)
     params = {
         "estimators": KNeighborsClassifier(),
-        "X": iris.data,
-        "y": iris.target,
+        "X": X,
+        "y": y,
         "random_state": 777,
         "n_jobs": -1,
     }
@@ -90,9 +90,9 @@ def test_eval_classification():
 
     # With test_data
     params["estimators"] = {"test_estimator": GaussianNB()}
-    len_train = int(0.8 * len(iris.data))
-    params["X"] = iris.data[:len_train]
-    params["y"] = iris.target[:len_train]
-    params["test_data"] = (iris.data[len_train:], iris.target[len_train:])
+    len_train = int(0.8 * len(X))
+    params["X"] = X[:len_train]
+    params["y"] = y[:len_train]
+    params["test_data"] = (X[len_train:], y[len_train:])
     scores = eval_classification(**params)
     assert "test_estimator" in scores["estimator"]
