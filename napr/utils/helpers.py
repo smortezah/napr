@@ -23,7 +23,7 @@ def all_but(all: list[str], but: list[str] | None) -> list[str]:
 def split_train_test(
     data: pd.DataFrame,
     target: str | None = None,
-    selected_classes: list[str] | None = None,
+    selected_classes: list[str] | list[int] | None = None,
     test_size: float | None = None,
     random_state: int | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series] | tuple[
