@@ -16,7 +16,7 @@ def test_find_best_models():
     """Test the find_best_models function."""
     # Empty X
     with pytest.raises(ValueError):
-        find_best_models(X=pd.DataFrame(), y=pd.Series(), hypermodel=None)
+        find_best_models(X=pd.DataFrame(), y=np.array(3), hypermodel=None)
 
     # No hypermodel
     with pytest.raises(ValueError):
@@ -25,8 +25,8 @@ def test_find_best_models():
     # Unknown score
     with pytest.raises(ValueError), TemporaryDirectory() as tmpdir:
         find_best_models(
-            X=np.array(1),
-            y=np.array(2),
+            X=np.random.rand(10, 2),
+            y=np.random.randint(0, 2, 10),
             hypermodel=lambda hp: KNeighborsClassifier(hp.Choice("k", [3])),
             score="score",
             project_name=tmpdir,

@@ -4,12 +4,13 @@ import numpy as np
 import pandas as pd
 
 import pytest
+from contextlib import nullcontext as not_raises
 
 from napr.utils import all_but, split_train_test, label_encode
 
 
 @pytest.mark.parametrize(
-    "all,but,expected",
+    "all, but, expected",
     [
         (["a", "b", "c"], ["b", "c"], ["a"]),
         (["a", "b", "c"], ["a", "b", "c"], []),
@@ -88,14 +89,23 @@ def test_split_train_test():
 
 
 @pytest.mark.parametrize(
-    "train,test,expected_train_encoded,expected_test_encoded,expected_labels",
+    "train, test, expected_train_encoded, expected_test_encoded, expected_labels, exception",
     [
+        (
+            pd.Series(dtype="float64"),
+            pd.Series(1),
+            None,
+            None,
+            None,
+            pytest.raises(ValueError),
+        ),
         (
             pd.Series(["a", "b", "c"]),
             pd.Series(["a", "b"]),
             np.array([0, 1, 2]),
             np.array([0, 1]),
             {"a": 0, "b": 1, "c": 2},
+            not_raises(),
         ),
         (
             pd.Series(["a", "b", "c"]),
@@ -103,6 +113,7 @@ def test_split_train_test():
             np.array([0, 1, 2]),
             np.array([2, 0, 1]),
             {"a": 0, "b": 1, "c": 2},
+            not_raises(),
         ),
         (
             pd.Series(["b", "c", "e", "d"]),
@@ -110,20 +121,21 @@ def test_split_train_test():
             np.array([0, 1, 3, 2]),
             None,
             {"b": 0, "c": 1, "d": 2, "e": 3},
+            not_raises(),
         ),
     ],
 )
 def test_label_encode(
-    train, test, expected_train_encoded, expected_test_encoded, expected_labels
+    train,
+    test,
+    expected_train_encoded,
+    expected_test_encoded,
+    expected_labels,
+    exception,
 ):
     """Test the label_encode function."""
-    train_encoded, test_encoded, labels = label_encode(train, test)
-    assert np.array_equal(train_encoded, expected_train_encoded)
-    assert np.array_equal(test_encoded, expected_test_encoded)  # type: ignore
-    assert labels == expected_labels
-
-
-def test_label_encode_exception():
-    """Test the label_encode function when exception occurs."""
-    with pytest.raises(ValueError):
-        label_encode(pd.Series(), pd.Series(1))
+    with exception:
+        train_encoded, test_encoded, labels = label_encode(train, test)
+        assert np.array_equal(train_encoded, expected_train_encoded)
+        assert np.array_equal(test_encoded, expected_test_encoded)  # type: ignore
+        assert labels == expected_labels
