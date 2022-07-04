@@ -60,9 +60,8 @@ def test_plot_lipinsky(data):
 
 def test_plot_hbond(data):
     """Test the plot_hbond function."""
-    with pytest.warns(DeprecationWarning):
-        plot = Plot(data)
-        fig, ax = plot.hbond()
+    plot = Plot(data)
+    fig, ax = plot.hbond()
 
     assert isinstance(fig, figure.Figure)
     for axis in ax:
