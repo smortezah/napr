@@ -33,9 +33,8 @@ def test_split_train_test():
         data=pd.DataFrame(np.random.rand(10, 3), columns=["a", "b", "c"]),
         test_size=0.4,
     )
-    assert X_train.shape[0] == 6
-    assert X_test.shape[0] == 4
-    assert X_train.shape[1] == X_test.shape[1] == 3
+    assert X_train.shape == (6, 3)
+    assert X_test.shape == (4, 3)
 
     # With target and without selected_classes
     X_train, X_test, y_train, y_test = split_train_test(  # type: ignore
@@ -43,9 +42,10 @@ def test_split_train_test():
         target="c",
         test_size=0.4,
     )
-    assert X_train.shape[0] == y_train.shape[0] == 6
-    assert X_test.shape[0] == y_test.shape[0] == 4
-    assert X_train.shape[1] == X_test.shape[1] == 2
+    assert X_train.shape == (6, 2)
+    assert y_train.shape == (6,)
+    assert X_test.shape == (4, 2)
+    assert y_test.shape == (4,)
 
     # With target and with selected_classes
     X_train, X_test, y_train, y_test = split_train_test(  # type: ignore
@@ -61,9 +61,10 @@ def test_split_train_test():
         selected_classes=[2, 1],
         test_size=0.5,
     )
-    assert X_train.shape[0] == y_train.shape[0] == 2
-    assert X_test.shape[0] == y_test.shape[0] == 2
-    assert X_train.shape[1] == X_test.shape[1] == 3
+    assert X_train.shape == (2, 3)
+    assert y_train.shape == (2,)
+    assert X_test.shape == (2, 3)
+    assert y_test.shape == (2,)
     assert y_train.isin([1, 2]).all()
     assert not y_test.isin([0]).any()
 
@@ -86,6 +87,43 @@ def test_split_train_test():
     assert not np.array_equal(X_test_1, X_test_2)
 
 
-def test_label_encode():
+@pytest.mark.parametrize(
+    "train,test,expected_train_encoded,expected_test_encoded,expected_labels",
+    [
+        (
+            pd.Series(["a", "b", "c"]),
+            pd.Series(["a", "b"]),
+            np.array([0, 1, 2]),
+            np.array([0, 1]),
+            {"a": 0, "b": 1, "c": 2},
+        ),
+        (
+            pd.Series(["a", "b", "c"]),
+            pd.Series(["c", "a", "b"]),
+            np.array([0, 1, 2]),
+            np.array([2, 0, 1]),
+            {"a": 0, "b": 1, "c": 2},
+        ),
+        (
+            pd.Series(["b", "c", "e", "d"]),
+            None,
+            np.array([0, 1, 3, 2]),
+            None,
+            {"b": 0, "c": 1, "d": 2, "e": 3},
+        ),
+    ],
+)
+def test_label_encode(
+    train, test, expected_train_encoded, expected_test_encoded, expected_labels
+):
     """Test the label_encode function."""
-    pass
+    train_encoded, test_encoded, labels = label_encode(train, test)
+    assert np.array_equal(train_encoded, expected_train_encoded)
+    assert np.array_equal(test_encoded, expected_test_encoded)  # type: ignore
+    assert labels == expected_labels
+
+
+def test_label_encode_exception():
+    """Test the label_encode function when exception occurs."""
+    with pytest.raises(ValueError):
+        label_encode(pd.Series(), pd.Series(1))
