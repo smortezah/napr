@@ -15,9 +15,9 @@ EstimatorT = TypeVar("EstimatorT")
 
 
 def find_best_models(
-    X: pd.DataFrame,
-    y: np.ndarray | pd.Series,
-    hypermodel: EstimatorT | None = None,
+    X: pd.DataFrame | np.ndarray,
+    y: pd.Series | np.ndarray,
+    hypermodel: EstimatorT,
     max_trials: int = 10,
     score: str = "accuracy",
     cv: int = 5,
@@ -48,11 +48,11 @@ def find_best_models(
     Returns:
         The best model or the list of the best models.
     """
-    oracle = kt.oracles.BayesianOptimizationOracle(
-        objective=kt.Objective("score", "max"),
-        max_trials=max_trials,
-    )
-    cv = StratifiedKFold(cv, shuffle=True, random_state=random_state)
+    if X.size == 0 or y.size == 0:
+        raise ValueError("X and y must not be empty.")
+    if hypermodel is None:
+        raise ValueError("hypermodel must not be None.")
+
     match score:
         case "accuracy":
             score = metrics.accuracy_score
@@ -64,6 +64,12 @@ def find_best_models(
             score = metrics.f1_score
         case _:
             raise ValueError(f"Unknown score: {score}")
+
+    oracle = kt.oracles.BayesianOptimizationOracle(
+        objective=kt.Objective("score", "max"),
+        max_trials=max_trials,
+    )
+    cv = StratifiedKFold(cv, shuffle=True, random_state=random_state)
 
     tuner = kt.tuners.SklearnTuner(
         oracle=oracle,

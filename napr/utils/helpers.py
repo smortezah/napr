@@ -63,21 +63,32 @@ def split_train_test(
 
 
 def label_encode(
-    train: pd.Series, test: pd.Series
-) -> tuple[np.ndarray, np.ndarray, dict[str, int]]:
+    train: pd.Series, test: pd.Series | None
+) -> tuple[np.ndarray, np.ndarray | None, dict[str, int]]:
     """Encode 1d train and test data with labal encoder.
 
     Args:
         train: The train data.
-        test: The test data.
+        test: The test data. If None, the train data will be encoded.
 
     Returns:
-        The encoded train and test data along with the labels, which shows the
+        The encoded train (and test) data along with the labels, which shows the
             mapping of the original labels to the encoded labels.
     """
+    if train.size == 0:
+        raise ValueError("No train data provided.")
+
+    # Train data
     label_encoder = LabelEncoder()
     train_encoded = label_encoder.fit_transform(train.values.ravel())
-    test_encoded = label_encoder.transform(test.values.ravel())
+
+    # Test data
+    if test is None or test.size == 0:
+        test_encoded = None
+    else:
+        test_encoded = label_encoder.transform(test.values.ravel())
+
+    # Labels
     labels = dict(
         zip(
             label_encoder.classes_,
