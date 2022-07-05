@@ -55,13 +55,17 @@ def find_best_models(
 
     match score:
         case "accuracy":
-            score = metrics.accuracy_score
+            scoring = metrics.make_scorer(metrics.accuracy_score)
         case "precision":
-            score = metrics.precision_score
+            scoring = metrics.make_scorer(
+                metrics.precision_score, average="weighted"
+            )
         case "recall":
-            score = metrics.recall_score
+            scoring = metrics.make_scorer(
+                metrics.recall_score, average="weighted"
+            )
         case "f1":
-            score = metrics.f1_score
+            scoring = metrics.make_scorer(metrics.f1_score, average="weighted")
         case _:
             raise ValueError(f"Unknown score: {score}")
 
@@ -74,7 +78,7 @@ def find_best_models(
     tuner = kt.tuners.SklearnTuner(
         oracle=oracle,
         hypermodel=hypermodel,
-        scoring=metrics.make_scorer(score),
+        scoring=scoring,
         cv=cv,
         directory=directory,
         project_name=project_name,
