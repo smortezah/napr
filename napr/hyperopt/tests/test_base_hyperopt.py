@@ -35,19 +35,19 @@ from napr.hyperopt._base import find_best_models
             pytest.raises(ValueError),
         ),
         (
-            np.random.rand(10, 2),
-            np.random.randint(0, 2, 10),
+            np.random.rand(150, 2),
+            np.random.randint(0, 2, 150),
             lambda hp: KNeighborsClassifier(hp.Choice("k", [3])),
             ["score"],
             1,
-            2,
+            3,
             pytest.raises(ValueError),
         ),
         (
-            np.random.rand(10, 2),
-            np.random.randint(0, 2, 10),
+            np.random.rand(150, 2),
+            np.random.randint(0, 3, 150),
             lambda hp: KNeighborsClassifier(
-                hp.Choice(name="n_neighbors", values=[3, 4])
+                hp.Choice(name="n_neighbors", values=[3, 5])
             ),
             ["accuracy", "precision", "recall", "f1"],
             1,
@@ -71,4 +71,4 @@ def test_find_best_models(X, y, hypermodel, scores, max_trials, cv, exception):
                 overwrite=True,
             )
             assert isinstance(best_model, KNeighborsClassifier)
-            assert best_model.n_neighbors in [3, 4]  # type: ignore
+            assert best_model.n_neighbors in [3, 5]  # type: ignore

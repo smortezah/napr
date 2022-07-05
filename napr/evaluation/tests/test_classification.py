@@ -82,8 +82,8 @@ def test_scores_row(
         ),
         (
             KNeighborsClassifier(),
-            np.random.rand(10, 3),
-            np.random.randint(0, 2, 10),
+            np.random.rand(150, 2),
+            np.random.randint(0, 3, 150),
             None,
             ["accuracy", "precision", "recall", "f1", "conf_mat"],
             not_raises(),
