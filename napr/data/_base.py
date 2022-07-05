@@ -40,7 +40,6 @@ def download(url: str, path: str = CURR_DIR, chunk_size: int = 1024) -> None:
         unit_scale=True,
         unit_divisor=1024,
     )
-
     with progress_bar, open(file_path, "wb") as file:
         for data in responce.iter_content(chunk_size=chunk_size):
             size = file.write(data)

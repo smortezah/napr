@@ -1,17 +1,14 @@
 """Sharing fixtures across multiple files."""
 
+import numpy as np
 import pandas as pd
+import random
 
 from sklearn.model_selection import train_test_split
 
 import pytest
 
-from napr.utils.random import (
-    rand_list_int,
-    rand_list_float,
-    rand_list_choices,
-    rand_list_string,
-)
+from napr.utils.random import rand_list_string
 
 
 @pytest.fixture(scope="module")
@@ -110,14 +107,14 @@ def data():
         """Generate a list of random bcutDescriptor."""
         result = []
         for _ in range(size):
-            rand_list = rand_list_int(size=6)
+            rand_list = np.random.randint(low=0, high=9, size=6).tolist()
             result.append("[" + ",".join(map(str, rand_list)) + "]")
         return result
 
     def _rand_textTaxa():
         """Generate a list of random textTaxa."""
-        return rand_list_choices(
-            elements=["plants", "marine", "bacteria", "fungi"], size=size
+        return random.choices(
+            population=["plants", "marine", "bacteria", "fungi"], k=size
         )
 
     data = {"chemicalSubClass": chemicalSubClass_21_3}
@@ -129,7 +126,7 @@ def data():
         "hBondAcceptorCount",
         "hBondDonorCount",
     ]:
-        data[column] = rand_list_float(size=size)
+        data[column] = np.random.rand(size).tolist()
     data["bcutDescriptor"] = _rand_bcutDescriptor()
     data["textTaxa"] = _rand_textTaxa()
     data["directParentClassification"] = rand_list_string(len_str=5, size=size)

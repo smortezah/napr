@@ -1,7 +1,5 @@
 """The base class for terpenes."""
 
-from typing import Optional
-
 import pandas as pd
 
 from napr import plotting
@@ -35,9 +33,7 @@ class Terpene:
         self.data = preprocessor.preprocess(**kwargs)
 
     @info(message="Dimension reduction")
-    def dim_reduce(
-        self, inplace: bool = True, **kwargs
-    ) -> Optional[pd.DataFrame]:
+    def dim_reduce(self, inplace: bool = True, **kwargs) -> pd.DataFrame | None:
         """Dimension reduction of the terpene data.
 
         Args:
@@ -47,11 +43,10 @@ class Terpene:
                     keeping 95% of the variance.
 
         Returns:
-            pd.DataFrame|None: The dimension reduced data, or None if inplace is
-                True.
+            The dimension reduced data, or None if inplace is True.
         """
-        dim_reducer = DimReduce(data=self.data)
+        data_reduced = DimReduce(data=self.data).dim_reduce(**kwargs)
         if inplace:
-            self.data = dim_reducer.dim_reduce(**kwargs)
+            self.data = data_reduced
         else:
-            return dim_reducer.dim_reduce(**kwargs)
+            return data_reduced

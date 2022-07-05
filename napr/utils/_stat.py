@@ -1,25 +1,20 @@
 """Statistical calculations API."""
 
-from typing import Union
-
 import pandas as pd
 
 
 def percent_within(
-    data: Union[list, pd.Series],
+    data: list[int | float] | pd.Series,
     interval: tuple[float, float],
     inclusive: str = "both",
 ) -> float:
-    """Percentage of data within an interval.
+    """Returns the percentage of data within an interval.
 
     Args:
-        data (list | pandas.Series): The data.
-        interval (tuple[float, float]): The interval.
-        inclusive (str, optional): Include boundaries: "both", "neither",
-            "left", "right". Defaults to "both".
-
-    Returns:
-        str: Percentage of data within the interval.
+        data: The data.
+        interval: The interval.
+        inclusive: Include boundaries: "both", "neither", "left", "right".
+            Defaults to "both".
     """
     data = pd.Series(data, dtype=float)
 

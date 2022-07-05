@@ -41,7 +41,7 @@ class Preprocess:
             **kwargs: Keyword arguments passed to preprocessing functions.
 
         Returns:
-            pd.DataFrame: The preprocessed data.
+            The preprocessed data.
         """
         if "random_state" in kwargs:
             self.random_state = kwargs["random_state"]
@@ -101,8 +101,8 @@ class Preprocess:
         """Encode the data.
 
         Args:
-            train (pd.DataFrame): The training data.
-            test (pd.DataFrame): The testing data.
+            train: The training data.
+            test: The testing data.
         """
         columns = ["directParentClassification"]
 
@@ -120,8 +120,8 @@ class Preprocess:
         """Impute the data.
 
         Args:
-            train (pd.DataFrame): The training data.
-            test (pd.DataFrame): The testing data.
+            train: The training data.
+            test: The testing data.
         """
         ignored_columns = self.dropped_columns + self.target_columns
         columns = train.columns[~train.columns.isin(ignored_columns)]
@@ -134,8 +134,8 @@ class Preprocess:
         """Feature scale the data.
 
         Args:
-            train (pd.DataFrame): The training data.
-            test (pd.DataFrame): The testing data.
+            train: The training data.
+            test: The testing data.
         """
         ignored_columns = (
             self.dropped_columns
@@ -166,7 +166,7 @@ class DimReduce:
                 functions.
 
         Returns:
-            pd.DataFrame: The dimension reduced data.
+            The dimension reduced data.
         """
         if "model" in kwargs:
             if isinstance(kwargs["model"], str):

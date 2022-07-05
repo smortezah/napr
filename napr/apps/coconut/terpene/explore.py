@@ -3,9 +3,13 @@
 import numpy as np
 import pandas as pd
 
-from matplotlib import figure, axes, pyplot as plt
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from matplotlib.axes import Axes
 from matplotlib.patches import ConnectionPatch
 import seaborn as sns
+
+from dataclasses import dataclass
 
 from napr.plotting import label_subplot
 
@@ -28,23 +32,23 @@ def _filter_subclasses(data: pd.DataFrame) -> pd.DataFrame:
     return data[data["chemicalSubClass"].isin(SUBCLASS_NAME.keys())]
 
 
+@dataclass
 class Plot:
-    def __init__(self, data: pd.DataFrame) -> None:
-        self.data = data
+    """Plotting submodule for the terpenes data."""
+
+    data: pd.DataFrame
 
     def dist_subclass_mw_logp_nplscore(
         self, figsize: tuple[float, float] = (9, 8)
-    ) -> tuple[figure.Figure, list[axes.Axes]]:
+    ) -> tuple[Figure, list[Axes]]:
         """Plot the distribution of subclasses, molecular weight, logP, and
         NPL-score.
 
         Args:
-            figsize (tuple[float, float], optional): (Width, height) in inches.
-                Defaults to (9, 8).
+            figsize: (Width, height) in inches. Defaults to (9, 8).
 
         Returns:
-            tuple[matplotlib.figure.Figure, matplotlib.axes.Axes]: Figure and
-                Axes.
+            Figure and Axes.
         """
         mosaic = """
         AAABBB
@@ -213,17 +217,15 @@ class Plot:
 
     def violin_mw_logp_nplscore(
         self, figsize: tuple[float, float] = (8.5, 3.5)
-    ) -> tuple[figure.Figure, list[axes.Axes]]:
+    ) -> tuple[Figure, list[Axes]]:
         """Plot the distribution of molecular weight, logP and NPL-score for
         each terpene subclass.
 
         Args:
-            figsize (tuple[float, float], optional): (Width, height) in inches.
-                Defaults to (8.5, 3.5).
+            figsize: (Width, height) in inches. Defaults to (8.5, 3.5).
 
         Returns:
-            tuple[matplotlib.figure.Figure, matplotlib.axes.Axes]: Figure and
-                Axes.
+            Figure and Axes.
         """
         fig, ax = plt.subplots(1, 3, figsize=figsize, sharey=True)
 
@@ -331,16 +333,14 @@ class Plot:
 
     def lipinsky(
         self, figsize: tuple[float, float] = (6, 8)
-    ) -> tuple[figure.Figure, list[axes.Axes]]:
+    ) -> tuple[Figure, list[Axes]]:
         """Plot the Lipinsky's rule of five violations
 
         Args:
-            figsize (tuple[float, float], optional): (Width, height) in inches.
-                Defaults to (6, 8).
+            figsize: (Width, height) in inches. Defaults to (6, 8).
 
         Returns:
-            tuple[matplotlib.figure.Figure, matplotlib.axes.Axes]: Figure and
-                Axes.
+            Figure and Axes.
         """
         fig = plt.figure(figsize=figsize)
         nrow, ncol = 3, 3
@@ -355,7 +355,7 @@ class Plot:
 
         # Subplot a
         # Axes
-        ax: list[axes.Axes] = []
+        ax: list[Axes] = []
         ax.append(
             plt.subplot2grid(
                 shape=(nrow, ncol), loc=(0, 0), colspan=3
@@ -462,16 +462,14 @@ class Plot:
 
     def hbond(
         self, figsize: tuple[float, float] = (7, 10)
-    ) -> tuple[figure.Figure, list[axes.Axes]]:
+    ) -> tuple[Figure, list[Axes]]:
         """Plot the distribution of hydrogen bond acceptors and donors.
 
         Args:
-            figsize (tuple[float, float], optional): (Width, height) in inches.
-                Defaults to (7, 10).
+            figsize: (Width, height) in inches. Defaults to (7, 10).
 
         Returns:
-            tuple[matplotlib.figure.Figure, matplotlib.axes.Axes]: Figure and
-                Axes.
+            Figure and Axes.
         """
         fig, ax = plt.subplots(
             7,

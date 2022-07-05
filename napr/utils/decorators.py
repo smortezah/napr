@@ -10,8 +10,8 @@ def info(_func=None, *, message: str):
     also the run time.
 
     Args:
-        _func (optional): Called function. Defaults to None.
-        message (str): The message to be printed. Defaults to "".
+        _func: Called function. Defaults to None.
+        message: The message to be printed. Defaults to "".
     """
 
     def decor(func):
