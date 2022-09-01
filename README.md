@@ -42,3 +42,7 @@ pytest napr
 If you use this package, please cite:
 
 - Hosseini, Morteza, and David M. Pereira. "The chemical space of terpenes: insights from data science and AI." arXiv preprint [arXiv:2110.15047](https://arxiv.org/abs/2110.15047) (2021).
+
+## Codebase
+
+![Visualization of this repo](./diagram.svg)
