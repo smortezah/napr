@@ -6,7 +6,7 @@
 [![codecov](https://codecov.io/gh/smortezah/napr/branch/main/graph/badge.svg?token=DIZ6JRWAZM)](https://codecov.io/gh/smortezah/napr)
 [![downloads](https://static.pepy.tech/personalized-badge/napr?period=total&units=international_system&left_color=grey&right_color=yellow&left_text=downloads)](https://pepy.tech/project/napr)
 [![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![ci](https://github.com/smortezah/napr/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/smortezah/napr/actions/workflows/test.yml)
+[![ci](https://github.com/smortezah/napr/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/smortezah/napr/actions/workflows/ci.yml)
 
 Napr is a Python package that takes a machine learning driven approach to navigate the natural products chemical space.
 
