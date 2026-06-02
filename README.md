@@ -5,7 +5,6 @@
 [![pypi](https://img.shields.io/pypi/v/napr)](https://pypi.org/project/napr)
 [![codecov](https://codecov.io/gh/smortezah/napr/branch/main/graph/badge.svg?token=DIZ6JRWAZM)](https://codecov.io/gh/smortezah/napr)
 [![downloads](https://static.pepy.tech/personalized-badge/napr?period=total&units=international_system&left_color=grey&right_color=yellow&left_text=downloads)](https://pepy.tech/project/napr)
-[![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![ci](https://github.com/smortezah/napr/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/smortezah/napr/actions/workflows/ci.yml)
 
 Napr is a Python package that takes a machine learning driven approach to navigate the natural products chemical space.
@@ -14,6 +13,9 @@ Napr is a Python package that takes a machine learning driven approach to naviga
 
 ```sh
 pip install napr
+
+# Or
+# uv add napr
 ```
 
 To update napr to the latest version, add -U or --upgrade flag, i.e. `pip install -U napr`.
@@ -41,8 +43,4 @@ pytest napr
 
 If you use this package, please cite:
 
-- Hosseini, Morteza, and David M. Pereira. "The chemical space of terpenes: insights from data science and AI." arXiv preprint [arXiv:2110.15047](https://arxiv.org/abs/2110.15047) (2021).
-
-## Codebase
-
-![Visualization of this repo](./diagram.svg)
+> Hosseini, M.; Pereira, D.M. The Chemical Space of Terpenes: Insights from Data Science and AI. *Pharmaceuticals* **2023**, 16, 202. https://doi.org/10.3390/ph16020202
