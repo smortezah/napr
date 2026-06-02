@@ -36,7 +36,7 @@ We welcome new contributors of all experience levels.
 Launch the test suite, after installation:
 
 ```sh
-pytest napr
+pytest
 ```
 
 ## Cite
