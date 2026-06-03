@@ -136,8 +136,8 @@ cython_debug/
 # vscode related files
 .vscode
 
-# Big files
-napr/data/datasets/*
+# Big files/folders
+tuner/
 terpene-21.3.bz2
 
 # Hyperparameter tuning - pickle files
