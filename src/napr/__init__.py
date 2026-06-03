@@ -1,5 +1,8 @@
 """Napr package."""
 
-from napr import apps, data, evaluation, hyperopt, plotting, utils
+from importlib.metadata import PackageNotFoundError, version
 
-__all__ = ["apps", "data", "plotting", "utils", "evaluation", "hyperopt"]
+try:
+    __version__ = version("napr")
+except PackageNotFoundError:
+    __version__ = "unknown"
