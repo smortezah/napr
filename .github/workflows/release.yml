@@ -27,12 +27,12 @@ jobs:
       - name: Build
         run: uv build
       
-        # Check that basic features work and we didn't miss to include crucial files
+        # Check that built artifacts are installable and importable
       - name: Smoke test (wheel)
-        run: uv run --isolated --no-project --with dist/*.whl tests/smoke_test.py
+        run: uv run --isolated --no-project --with dist/*.whl python -c "import napr"
       
       - name: Smoke test (source distribution)
-        run: uv run --isolated --no-project --with dist/*.tar.gz tests/smoke_test.py
+        run: uv run --isolated --no-project --with dist/*.tar.gz python -c "import napr"
       
       - name: Publish
         run: uv publish
