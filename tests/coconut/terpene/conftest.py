@@ -4,7 +4,6 @@ import random
 import numpy as np
 import pandas as pd
 import pytest
-from numpy.char import str_len
 from sklearn.model_selection import train_test_split
 
 from napr.random import rand_list_string
