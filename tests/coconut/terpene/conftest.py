@@ -1,4 +1,5 @@
 """Sharing fixtures across multiple files."""
+
 import random
 
 import numpy as np

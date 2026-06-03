@@ -80,5 +80,5 @@ def label_encode(
             label_encoder.transform(label_encoder.classes_),
         )
     )
-    
+
     return train_encoded, test_encoded, labels
