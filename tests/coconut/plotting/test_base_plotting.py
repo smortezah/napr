@@ -21,7 +21,11 @@ def test_plt_style():
     assert mpl.rcParams != mpl.rcParamsDefault
 
     reset_plt_style()
-    assert mpl.rcParams == mpl.rcParamsDefault
+    # Exclude backend-related keys that may differ in headless/CI environments
+    backend_keys = {"backend", "backend_fallback"}
+    assert {k: v for k, v in mpl.rcParams.items() if k not in backend_keys} == {
+        k: v for k, v in mpl.rcParamsDefault.items() if k not in backend_keys
+    }
 
     set_plt_style("ggplot_bw")
     assert mpl.rcParams["axes.grid"] is True
