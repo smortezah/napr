@@ -20,12 +20,15 @@ def download(url: str, path: Path = CURR_DIR, chunk_size: int = 1024) -> None:
     except requests.exceptions.RequestException as exc:
         raise SystemExit(exc) from exc
 
+    cd_file_name = None
     if "content-disposition" in responce.headers:
         dispos = responce.headers["content-disposition"]
-        file_name = re.findall('filename="(.+)"', dispos)[0]
+        matches = re.findall('filename="(.+)"', dispos)
+        if matches:
+            cd_file_name = matches[0]
 
     if path.is_dir():
-        file_name = "tmp"
+        file_name = cd_file_name or "tmp"
         file_path = path / file_name
     else:
         file_name = path.name
