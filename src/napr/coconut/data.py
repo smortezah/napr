@@ -3,6 +3,7 @@
 from pathlib import Path
 
 import pandas as pd
+from pandas.core.frame import DataFrame
 
 from napr import network
 
@@ -35,14 +36,15 @@ def load_terpene(
     if path.is_dir():
         path = path / f"terpene-{version}.bz2"
 
-    if not download and not path.exists():
-        raise FileNotFoundError(f"File {path} not found.")
-
-    if version == "21.3":
-        url = "https://drive.google.com/u/0/uc?id=1HFjVme274zL1r7Cr_0q-RrMoZebbGekJ&export=download"
+    if download:
+        if version == "21.3":
+            url = "https://drive.google.com/u/0/uc?id=1HFjVme274zL1r7Cr_0q-RrMoZebbGekJ&export=download"
         network.download(url=url, path=path)
+    else:
+        if not path.exists():
+            raise FileNotFoundError(f"File {path} not found.")
 
-    data = pd.read_csv(
+    data: DataFrame = pd.read_csv(
         path,
         index_col=0,
         low_memory=False,
